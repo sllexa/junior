@@ -1,15 +1,15 @@
 package ru.job4j;
 
 /**
- * Calculate.
+ * Calculate. Класс для изучения базового синтаксиса.
  *
- * @author Aleksey Slivko (sllexa@yandex.ru)
+ * @author Aleksey Slivko (mailto:sllexa@yandex.ru)
  * @version $Id$
- * @since 0.1
+ * @since 15.04.2017
  */
 public class Calculate {
 	/**
-     * Main.
+     * Main. Старт нашей программы.
      * @param args - args.
      */
 	public static void main(String[] args){
