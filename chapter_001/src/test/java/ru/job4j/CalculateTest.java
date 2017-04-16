@@ -7,7 +7,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
 /**
-* Класс для создания тестов.
+* РљР»Р°СЃСЃ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ С‚РµСЃС‚РѕРІ.
 *
 * @author Aleksey Slivko (mailto:sllexa@yandex.ru)
 * @version $Id$
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThat;
 */
 public class CalculateTest {
 	/**
-	* Добавим тест.
+	* Р”РѕР±Р°РІРёРј С‚РµСЃС‚.
 	*/
 	@Test
 	public void whenAddOneToOneThenTwo() {
