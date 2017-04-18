@@ -26,6 +26,14 @@ public class Calculator {
         return this.result;
     }
     /**
+	 * Вычитание.
+	 * @param first первый аргумент.
+	 * @param second второй аргумент.
+	 */
+    public void substruct(double first, double second) {
+		this.result = first - second;
+    }
+	/**
 	 * Умножение.
 	 * @param first первый аргумент.
 	 * @param second второй аргумент.

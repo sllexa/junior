@@ -24,6 +24,17 @@ public class CalculatorTest {
 		assertThat(result, is(expected));
 	}
 	/**
+	* Test substruct.
+	*/
+	@Test
+	public void whenAddForMinusOneThenThree() {
+		Calculator calc = new Calculator();
+		calc.substruct(4.0, 1.0);
+		double result = calc.getResult();
+		double expected = 3.0;
+		assertThat(result, is(expected));
+	}
+	/**
 	* Test multiple.
 	*/
 	@Test
