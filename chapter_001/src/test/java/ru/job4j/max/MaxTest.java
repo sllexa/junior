@@ -16,10 +16,20 @@ public class MaxTest {
 	* Test max.
 	*/
 	@Test
-	public void whenMaxFirstOrSecondThen() {
+	public void whenMaxThreeTwoThenThree() {
 		Max maxi = new Max();
 		int result = maxi.max(3, 2);
 		int expected = 3;
+		assertThat(result, is(expected));
+	}
+	/**
+	* Test max.
+	*/
+	@Test
+	public void whenMaxThreeTwoFiveThenFive() {
+		Max maxi = new Max();
+		int result = maxi.max(3, 2, 5);
+		int expected = 5;
 		assertThat(result, is(expected));
 	}
 }
