@@ -20,6 +20,7 @@ public class ArrayDuplicate {
 				if (str[i].equals(str[j])) {
 					str[i] = str[len];
 					len--;
+					i--;
 				}
 			}
 		}
