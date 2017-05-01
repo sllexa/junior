@@ -93,9 +93,6 @@ public class Tracker {
         int tmp = 0;
         for (int i = 0; i < this.count; i++) {
             if (this.items[i].getName().equals(key)) {
-                //Item[] tmp = new Item[result.length + 1];
-                //System.arraycopy(result, 0, tmp, 0, result.length);
-                //tmp[tmp.length - 1] = this.items[i];
                 result[tmp++] = this.items[i];
             }
         }
