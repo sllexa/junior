@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import ru.job4j.tracker.models.Item;
 import java.util.Random;
+import java.util.Arrays;
 
 /**
  * Класс Tracker служит для хранения и обработки заявок.
@@ -88,16 +89,17 @@ public class Tracker {
      * @return - возвращает список найденных заявок.
      */
     public Item[] findByName(String key) {
-        Item[] result = new Item[0];
+        Item[] result = new Item[10];
+        int tmp = 0;
         for (int i = 0; i < this.count; i++) {
             if (this.items[i].getName().equals(key)) {
-                Item[] tmp = new Item[result.length + 1];
-                System.arraycopy(result, 0, tmp, 0, result.length);
-                tmp[tmp.length - 1] = this.items[i];
-                result = tmp;
+                //Item[] tmp = new Item[result.length + 1];
+                //System.arraycopy(result, 0, tmp, 0, result.length);
+                //tmp[tmp.length - 1] = this.items[i];
+                result[tmp++] = this.items[i];
             }
         }
-        return result;
+        return Arrays.copyOf(result, tmp);
     }
     /**
      * Метод поиска заявки по id.
