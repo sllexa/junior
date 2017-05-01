@@ -62,10 +62,7 @@ public class Tracker {
         if (item != null) {
             for (int i = 0; i < this.count; i++) {
                 if (this.items[i].getId().equals(item.getId())) {
-                    Item[] tmp = new Item[this.count - 1];
-                    System.arraycopy(this.items, 0, tmp, 0, i);
-                    System.arraycopy(this.items, i + 1, tmp, i, this.count - i - 1);
-                    this.items = tmp;
+                    System.arraycopy(this.items, i + 1, this.items, i, this.count - i - 1);
                     this.count--;
                     break;
                 }
