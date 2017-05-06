@@ -3,7 +3,7 @@ package ru.job4j.tracker.start;
 import ru.job4j.tracker.models.Item;
 import ru.job4j.tracker.Tracker;
 import java.util.Date;
-import java.text.SimpleDateFormat;
+
 /**
  * Класс StartUI.
  *
@@ -16,6 +16,10 @@ public class StartUI {
      * Поле для ввода.
      */
     private Input input;
+    /**
+     * Поле заявки.
+     */
+    private Tracker tracker;
     /**
      * Меню для пользователя.
      */
@@ -33,31 +37,58 @@ public class StartUI {
      */
     private boolean work = true;
     /**
-     * Создаем объект класса Tracker для работы с заявками.
-     */
-    private Tracker tracker = new Tracker();
-    /**
      * Объкт для работы с датами.
      */
     private Date date = new Date();
     /**
-     * Объект для форматирования даты.
+     * Перечисление.
      */
-    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+    private enum Actions {
+        /**
+         * Добавление новой заявки.
+         */
+        ADD,
+        /**
+         * Список всех заявок.
+         */
+        SHOW_ALL,
+        /**
+         * Обновление заявки.
+         */
+        EDIT,
+        /**
+         * Удаление заявки.
+         */
+        DELETE,
+        /**
+         * Поиск заявки по id.
+         */
+        FIND_BY_ID,
+        /**
+         * Список заявок с одним name.
+         */
+        FIND_BY_NAME,
+        /**
+         * Выход из программы.
+         */
+        EXIT
+    }
     /**
      * Конструктор класса.
      * @param input - ввод.
+     * @param tracker - заявка.
      */
-    public StartUI(Input input) {
+    public StartUI(Input input, Tracker tracker) {
         this.input = input;
+        this.tracker = tracker;
     }
     /**
      * Метод инициализации.
      */
     public void init() {
-        int numMenu;
+        boolean rMenu;
         while (work) {
-            numMenu = 0;
+            rMenu = false;
             System.out.println("");
             for (String str : this.menu) {
                 System.out.println(str);
@@ -67,35 +98,31 @@ public class StartUI {
             String[] sMenu = {"1", "2", "3", "4", "5", "6", "7"};
             for (int i = 0; i < sMenu.length; i++) {
                 if (sMenu[i].equals(str)) {
-                    numMenu = Integer.parseInt(str);
+                    execution(Actions.values()[i]);
+                    rMenu = true;
                     break;
                 }
             }
-            if (numMenu != 0) {
-                execution(numMenu);
-            } else {
+            if (!rMenu) {
                 System.out.println("Input error. Expected number from 1 to 7.");
             }
         }
     }
     /**
      * Метод выполняет действия в зависимости от выбранного пункта меню.
-     * @param num - номер пункта меню.
+     * @param action - выбранный пункта меню.
      */
-    private void execution(int num) {
-        if (num == 1) {
+    private void execution(Actions action) {
+        if (action == Actions.ADD) {
             String tName = input.ask("Please, inter the task's name: ");
             String tDesc = input.ask("Please, inter the task's description: ");
             tracker.add(new Item(tName, tDesc, date.getTime()));
             System.out.println("New task successfully added");
-        }
-        if (num == 2) {
+        } else if (action == Actions.SHOW_ALL) {
             for (Item tmp : tracker.findAll()) {
-                System.out.println(tmp.getName() + " | " + tmp.getDesc() + " | "
-                        + dateFormat.format(tmp.getCreated()) + " | " + tmp.getId());
+                System.out.println(tmp.toString(tmp));
             }
-        }
-        if (num == 3) {
+        } else if (action == Actions.EDIT) {
             String tId = input.ask("Please, inter the task's Id: ");
             for (Item tmp : tracker.findAll()) {
                 if (tmp != null && tmp.getId().equals(tId)) {
@@ -108,8 +135,7 @@ public class StartUI {
                     break;
                 }
             }
-        }
-        if (num == 4) {
+        } else if (action == Actions.DELETE) {
             String tId = input.ask("Please, inter the task's Id: ");
             for (Item tmp : tracker.findAll()) {
                 if (tmp != null && tmp.getId().equals(tId)) {
@@ -118,29 +144,24 @@ public class StartUI {
                     break;
                 }
             }
-        }
-        if (num == 5) {
+        } else if (action == Actions.FIND_BY_ID) {
             String tId = input.ask("Please, inter the task's Id: ");
             Item tmp = tracker.findById(tId);
             if (tmp != null) {
-                System.out.println(tmp.getName() + " | " + tmp.getDesc() + " | "
-                        + dateFormat.format(tmp.getCreated()) + " | " + tmp.getId());
+                System.out.println(tmp.toString(tmp));
             } else {
                 System.out.println("No task's with this Id.");
             }
-        }
-        if (num == 6) {
+        } else if (action == Actions.FIND_BY_NAME) {
             String tName = input.ask("Please, inter the task's name: ");
             for (Item tmp : tracker.findByName(tName)) {
                 if (tmp != null) {
-                    System.out.println(tmp.getName() + " | " + tmp.getDesc() + " | "
-                            + dateFormat.format(tmp.getCreated()) + " | " + tmp.getId());
+                    System.out.println(tmp.toString(tmp));
                 } else {
                     System.out.println("No task's with this name.");
                 }
             }
-        }
-        if (num == 7) {
+        } else {
             work = false;
             System.out.println("The program is closed.");
         }
@@ -151,6 +172,7 @@ public class StartUI {
      */
     public static void main(String[] args) {
         Input input = new ConsoleInput();
-        new StartUI(input).init();
+        Tracker tracker  = new Tracker();
+        new StartUI(input, tracker).init();
     }
 }

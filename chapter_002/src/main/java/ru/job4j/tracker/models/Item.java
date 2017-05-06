@@ -101,12 +101,20 @@ public class Item {
     public String[] getComments() {
         return this.comments;
     }
-
     /**
      * Метод изменяет comments заявки.
      * @param comments - новое значение.
      */
     protected void setComments(String[] comments) {
         this.comments = comments;
+    }
+    /**
+     * Метод подготавливает строку для печати.
+     * @param item - заявка.
+     * @return возвращает строку для печати.
+     */
+    public String toString(Item item) {
+        return String.format("Name: %s | Description: %s | Date: %td.%<tm.%<tY %<tR | Id: %s",
+                item.getName(), item.getDesc(), item.getCreated(), item.getId());
     }
 }
