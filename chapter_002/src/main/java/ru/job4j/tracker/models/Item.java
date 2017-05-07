@@ -109,12 +109,12 @@ public class Item {
         this.comments = comments;
     }
     /**
-     * Метод подготавливает строку для печати.
-     * @param item - заявка.
-     * @return возвращает строку для печати.
+     * Переопределяем метод toString.
+     * @return - возвращает строку для печати.
      */
-    public String toString(Item item) {
+    @Override
+    public String toString() {
         return String.format("Name: %s | Description: %s | Date: %td.%<tm.%<tY %<tR | Id: %s",
-                item.getName(), item.getDesc(), item.getCreated(), item.getId());
+                this.getName(), this.getDesc(), this.getCreated(), this.getId());
     }
 }

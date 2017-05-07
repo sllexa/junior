@@ -120,7 +120,7 @@ public class StartUI {
             System.out.println("New task successfully added");
         } else if (action == Actions.SHOW_ALL) {
             for (Item tmp : tracker.findAll()) {
-                System.out.println(tmp.toString(tmp));
+                System.out.println(tmp);
             }
         } else if (action == Actions.EDIT) {
             String tId = input.ask("Please, inter the task's Id: ");
@@ -148,7 +148,7 @@ public class StartUI {
             String tId = input.ask("Please, inter the task's Id: ");
             Item tmp = tracker.findById(tId);
             if (tmp != null) {
-                System.out.println(tmp.toString(tmp));
+                System.out.println(tmp);
             } else {
                 System.out.println("No task's with this Id.");
             }
@@ -156,7 +156,7 @@ public class StartUI {
             String tName = input.ask("Please, inter the task's name: ");
             for (Item tmp : tracker.findByName(tName)) {
                 if (tmp != null) {
-                    System.out.println(tmp.toString(tmp));
+                    System.out.println(tmp);
                 } else {
                     System.out.println("No task's with this name.");
                 }
