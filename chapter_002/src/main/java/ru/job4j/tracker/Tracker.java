@@ -1,7 +1,6 @@
 package ru.job4j.tracker;
 
 import ru.job4j.tracker.models.Item;
-import java.util.Random;
 import java.util.Arrays;
 
 /**
@@ -22,13 +21,13 @@ public class Tracker {
     /**
      * Константа случайного числа.
      */
-    private static final Random RN = new Random();
+    private int countId = 0;
     /**
      * Метод генерирует id заявки.
      * @return - возвращает id в строковом формате.
      */
     String generateId() {
-        return String.valueOf(System.currentTimeMillis() + RN.nextInt());
+        return "00" + String.valueOf(++countId);
     }
     /**
      * Метод добавления заявки.
