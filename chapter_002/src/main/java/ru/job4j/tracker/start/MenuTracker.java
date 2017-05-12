@@ -41,16 +41,30 @@ public class MenuTracker {
 
     /**
      * Метод заполняет массив для хранения меню.
+     * @return - возвращает массив действий.
      */
-    public void fillAction() {
+    public UserAction[] fillAction() {
         this.actions[0] = new MenuTracker.AddItem();
         this.actions[1] = new MenuTracker.ShowItems();
         this.actions[2] = new MenuTracker.EditItem();
         this.actions[3] = new MenuTracker.DeleteItem();
         this.actions[4] = new MenuTracker.FindById();
         this.actions[5] = new MenuTracker.FindByName();
+        return this.actions;
     }
 
+    /**
+     * Метод заполняет массив цифовым интервалом меню.
+     * @param list - массив действий.
+     * @return - возвращает массив с цифровым интервалом.
+     */
+    public int[] fillRange(UserAction[] list) {
+        int[] menuRange = new int[list.length];
+        for (int i = 0; i < list.length; i++) {
+            menuRange[i] = list[i].key();
+        }
+        return menuRange;
+    }
     /**
      * Метод выбора меню польльзователем.
      * @param key - номер меню.
