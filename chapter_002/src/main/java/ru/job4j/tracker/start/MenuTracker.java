@@ -28,6 +28,10 @@ public class MenuTracker {
      * Объккт для хранения даты.
      */
     private static Date date;
+    /**
+     * Счетчик действий.
+     */
+    private int count = 0;
 
     /**
      * Конструктор класса.
@@ -38,21 +42,26 @@ public class MenuTracker {
         this.input = input;
         this.tracker = tracker;
     }
-
     /**
      * Метод заполняет массив для хранения меню.
      * @return - возвращает массив действий.
      */
     public UserAction[] fillAction() {
-        this.actions[0] = new MenuTracker.AddItem();
-        this.actions[1] = new MenuTracker.ShowItems();
-        this.actions[2] = new MenuTracker.EditItem();
-        this.actions[3] = new MenuTracker.DeleteItem();
-        this.actions[4] = new MenuTracker.FindById();
-        this.actions[5] = new MenuTracker.FindByName();
+        this.actions[count++] = new MenuTracker.AddItem("Add new item.", count);
+        this.actions[count++] = new MenuTracker.ShowItems("Show all items.", count);
+        this.actions[count++] = new MenuTracker.EditItem("Edit item.", count);
+        this.actions[count++] = new MenuTracker.DeleteItem("Delete item.", count);
+        this.actions[count++] = new MenuTracker.FindById("Find item by Id.", count);
+        this.actions[count++] = new MenuTracker.FindByName("Find items by name.", count);
         return this.actions;
     }
-
+    /*/**
+     * Метод добавления нового действия.
+     * @param action - действие.
+     */
+    /*public void AddActions(UserAction action) {
+        this.actions[count++] = action;
+    }*/
     /**
      * Метод заполняет массив цифовым интервалом меню.
      * @param list - массив действий.
@@ -61,7 +70,7 @@ public class MenuTracker {
     public int[] fillRange(UserAction[] list) {
         int[] menuRange = new int[list.length];
         for (int i = 0; i < list.length; i++) {
-            menuRange[i] = list[i].key();
+            menuRange[i] = i + 1;
         }
         return menuRange;
     }
@@ -86,13 +95,14 @@ public class MenuTracker {
     /**
      * Внутренний статический класс для меню добавление новой заявки.
      */
-    private static class AddItem implements UserAction {
+    private static class AddItem extends BaseAction {
         /**
-         * Метод возвращает ключ меню.
-         * @return - возвращает номер меню.
+         * Конструктор класса.
+         * @param name - название меню.
+         * @param key - номер меню.
          */
-        public int key() {
-            return 1;
+        AddItem(String name, int key) {
+            super(name, key);
         }
         /**
          * Метод добавляет новую заявку.
@@ -105,25 +115,18 @@ public class MenuTracker {
             date = new Date();
             tracker.add(new Item(tName, tDesc, date.getTime()));
         }
-
-        /**
-         * Метод выводит информацию о действии.
-         * @return - возвращает строку с информацией.
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Add new item.");
-        }
     }
     /**
      * Внутренний статический класс для вывода в консоль списка всех заявок.
      */
-    private static class ShowItems implements UserAction {
+    private static class ShowItems extends BaseAction {
         /**
-         * Метод возвращает ключ меню.
-         * @return - возвращает номер меню.
+         * Конструктор класса.
+         * @param name - название меню.
+         * @param key - номер меню.
          */
-        public int key() {
-            return 2;
+        ShowItems(String name, int key) {
+            super(name, key);
         }
         /**
          * Метод выводит список всех заявок.
@@ -135,24 +138,18 @@ public class MenuTracker {
                 System.out.println(tmp);
             }
         }
-        /**
-         * Метод выводит информацию о действии.
-         * @return - возвращает строку с информацией.
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Show all items.");
-        }
     }
     /**
      * Внутренний статический класс для редактирования заявки.
      */
-    private static class EditItem implements UserAction {
+    private static class EditItem extends BaseAction {
         /**
-         * Метод возвращает ключ меню.
-         * @return - возвращает номер меню.
+         * Конструктор класса.
+         * @param name - название меню.
+         * @param key - номер меню.
          */
-        public int key() {
-            return 3;
+        EditItem(String name, int key) {
+            super(name, key);
         }
         /**
          * Метод редкктирует заявку.
@@ -173,24 +170,18 @@ public class MenuTracker {
                 }
             }
         }
-        /**
-         * Метод выводит информацию о действии.
-         * @return - возвращает строку с информацией.
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Edit item.");
-        }
     }
     /**
      * Внутренний статический класс для удаления заявки.
      */
-    private static class DeleteItem implements UserAction {
+    private static class DeleteItem extends BaseAction {
         /**
-         * Метод возвращает ключ меню.
-         * @return - возвращает номер меню.
+         * Конструктор класса.
+         * @param name - название меню.
+         * @param key - номер меню.
          */
-        public int key() {
-            return 4;
+        DeleteItem(String name, int key) {
+            super(name, key);
         }
         /**
          * Метод удаляет заявку.
@@ -207,24 +198,18 @@ public class MenuTracker {
                 }
             }
         }
-        /**
-         * Метод выводит информацию о действии.
-         * @return - возвращает строку с информацией.
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Delete item.");
-        }
     }
     /**
      * Внутренний статический класс для поиска заявки по id.
      */
-    private static class FindById implements UserAction {
+    private static class FindById extends BaseAction {
         /**
-         * Метод возвращает ключ меню.
-         * @return - возвращает номер меню.
+         * Конструктор класса.
+         * @param name - название меню.
+         * @param key - номер меню.
          */
-        public int key() {
-            return 5;
+        FindById(String name, int key) {
+            super(name, key);
         }
         /**
          * Метод ищет заявку по id.
@@ -240,24 +225,18 @@ public class MenuTracker {
                 System.out.println("No task's with this Id.");
             }
         }
-        /**
-         * Метод выводит информацию о действии.
-         * @return - возвращает строку с информацией.
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Find item by Id.");
-        }
     }
     /**
      * Внутренний статический класс для вывода списка заявок с однинаковым name.
      */
-    private static class FindByName implements UserAction {
+    private static class FindByName extends BaseAction {
         /**
-         * Метод возвращает ключ меню.
-         * @return - возвращает номер меню.
+         * Конструктор класса.
+         * @param name - название меню.
+         * @param key - номер меню.
          */
-        public int key() {
-            return 6;
+        FindByName(String name, int key) {
+            super(name, key);
         }
         /**
          * Метод выводит список заявок с одинаковым name.
@@ -273,13 +252,6 @@ public class MenuTracker {
                     System.out.println("No task's with this name.");
                 }
             }
-        }
-        /**
-         * Метод выводит информацию о действии.
-         * @return - возвращает строку с информацией.
-         */
-        public String info() {
-            return String.format("%s. %s", this.key(), "Find items by name.");
         }
     }
 }
