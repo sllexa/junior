@@ -58,4 +58,21 @@ public class Cell {
     public void setY(int y) {
         this.y = y;
     }
+
+    /**
+     * Cell comparison method.
+     * @param source - cell
+     * @return - true or false
+     */
+    public boolean equals(Cell source) {
+        return this.getX() == source.getX() && this.getY() == source.getY();
+    }
+
+    /**
+     * .
+     * @return - number.
+     */
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
