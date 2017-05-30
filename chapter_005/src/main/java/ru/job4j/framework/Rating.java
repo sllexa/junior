@@ -1,7 +1,10 @@
 package ru.job4j.framework;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.TreeSet;
+import java.util.LinkedList;
 /**
  * Class Rating.
  *
