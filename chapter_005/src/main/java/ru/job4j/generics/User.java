@@ -9,7 +9,7 @@ package ru.job4j.generics;
  */
 public class User {
     /**
-     * Count id;
+     * Count id.
      */
     private int num = 0;
     /**
