@@ -45,4 +45,21 @@ public class ConvertListTest {
         int[][] expArray = {{9, 8, 7}, {6, 5, 4}, {3, 0, 0}};
         assertThat(resArray, is(expArray));
     }
+    /**
+     * test convert list of arrays to one ArrayList.
+     */
+    @Test
+    public void whenConvertListOfArraysToOneList() {
+        List<int[]> list = new ArrayList<>();
+        list.add(new int[]{9, 8, 7});
+        list.add(new int[]{6, 5, 4});
+        list.add(new int[]{3, 2, 1});
+        ConvertList cList = new ConvertList();
+        List<Integer> result = cList.convert(list);
+        List<Integer> expected = new ArrayList<>();
+        for (int i = 9; i > 0; i--) {
+            expected.add(i);
+        }
+        assertThat(result, is(expected));
+    }
 }
