@@ -1,5 +1,7 @@
 package ru.job4j.tracker.start;
 
+import java.util.ArrayList;
+
 /**
  * Класс StubInput.
  *
@@ -11,7 +13,7 @@ public class StubInput implements Input {
     /**
      * Массив строк.
      */
-    private String[] answers;
+    private ArrayList<String> answers;
     /**
      * Поле счетчика.
      */
@@ -20,7 +22,7 @@ public class StubInput implements Input {
      * Конструктор класса.
      * @param answers - входящий массив строк.
      */
-    public StubInput(String[] answers) {
+    public StubInput(ArrayList<String> answers) {
         this.answers = answers;
     }
     /**
@@ -29,7 +31,7 @@ public class StubInput implements Input {
      * @return - возвращает ответ пользователя.
      */
     public String ask(String question) {
-        return answers[this.count++];
+        return answers.get(this.count++);
     }
 
     /**
@@ -38,8 +40,19 @@ public class StubInput implements Input {
      * @param range - цифровой интервал.
      * @return - возвращает
      */
-    public int ask(String question, int[] range) {
-        //throw new UnsupportedOperationException("Unsupported operation");
-        return -1;
+    public int ask(String question, ArrayList<Integer> range) {
+        int key = Integer.valueOf(this.ask(question));
+        boolean exist = false;
+        for (int tmp : range) {
+            if (tmp == key) {
+                exist = true;
+                break;
+            }
+        }
+        if (exist) {
+            return key;
+        } else {
+            throw new MenuOutException("Out of menu range.");
+        }
     }
 }

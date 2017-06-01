@@ -2,6 +2,8 @@ package ru.job4j.tracker.start;
 
 import ru.job4j.tracker.Tracker;
 import ru.job4j.tracker.models.Item;
+
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -23,7 +25,7 @@ public class MenuTracker {
     /**
      * Массив для хранения меню.
      */
-    private UserAction[] actions = new UserAction[6];
+    private ArrayList<UserAction> actions = new ArrayList<>();
     /**
      * Объккт для хранения даты.
      */
@@ -46,13 +48,13 @@ public class MenuTracker {
      * Метод заполняет массив для хранения меню.
      * @return - возвращает массив действий.
      */
-    public UserAction[] fillAction() {
-        this.actions[count++] = new MenuTracker.AddItem("Add new item.", count);
-        this.actions[count++] = new MenuTracker.ShowItems("Show all items.", count);
-        this.actions[count++] = new MenuTracker.EditItem("Edit item.", count);
-        this.actions[count++] = new MenuTracker.DeleteItem("Delete item.", count);
-        this.actions[count++] = new MenuTracker.FindById("Find item by Id.", count);
-        this.actions[count++] = new MenuTracker.FindByName("Find items by name.", count);
+    public ArrayList<UserAction> fillAction() {
+        this.actions.add(count++, new MenuTracker.AddItem("Add new item.", count));
+        this.actions.add(count++, new MenuTracker.ShowItems("Show all items.", count));
+        this.actions.add(count++, new MenuTracker.EditItem("Edit item.", count));
+        this.actions.add(count++, new MenuTracker.DeleteItem("Delete item.", count));
+        this.actions.add(count++, new MenuTracker.FindById("Find item by Id.", count));
+        this.actions.add(count++, new MenuTracker.FindByName("Find items by name.", count));
         return this.actions;
     }
     /*/**
@@ -64,13 +66,13 @@ public class MenuTracker {
     }*/
     /**
      * Метод заполняет массив цифовым интервалом меню.
-     * @param list - массив действий.
+     * @param count - количество действий в меню.
      * @return - возвращает массив с цифровым интервалом.
      */
-    public int[] fillRange(UserAction[] list) {
-        int[] menuRange = new int[list.length];
-        for (int i = 0; i < list.length; i++) {
-            menuRange[i] = i + 1;
+    public ArrayList<Integer> fillRange(int count) {
+        ArrayList<Integer> menuRange = new ArrayList<>();
+        for (int i = 1; i <= count; i++) {
+            menuRange.add(i);
         }
         return menuRange;
     }
@@ -79,7 +81,7 @@ public class MenuTracker {
      * @param key - номер меню.
      */
     public void select(int key) {
-        this.actions[key - 1].execute(this.input, this.tracker);
+        this.actions.get(key - 1).execute(this.input, this.tracker);
     }
 
     /**

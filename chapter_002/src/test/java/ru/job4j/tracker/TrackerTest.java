@@ -2,6 +2,9 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 import ru.job4j.tracker.models.Item;
+
+import java.util.ArrayList;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 /**
@@ -20,7 +23,7 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item item = new Item("test1", "testDescription", 123L);
         tracker.add(item);
-        assertThat(tracker.findAll()[0], is(item));
+        assertThat(tracker.findAll().get(0), is(item));
     }
     /**
      * Тест проверяющий обновление заявки.
@@ -33,7 +36,7 @@ public class TrackerTest {
         tracker.add(itemTest1);
         tracker.add(itemTest2);
         tracker.update(itemTest2);
-        assertThat(tracker.findAll()[1], is(itemTest2));
+        assertThat(tracker.findAll().get(1), is(itemTest2));
     }
     /**
      * Тест проверяющий удаление заявки.
@@ -46,7 +49,7 @@ public class TrackerTest {
         tracker.add(itemTest1);
         tracker.add(itemTest2);
         tracker.delete(itemTest1);
-        assertThat(tracker.findAll()[0], is(itemTest2));
+        assertThat(tracker.findAll().get(0), is(itemTest2));
     }
     /**
      * Тест проверяющий вывод списка всех заявок.
@@ -56,7 +59,9 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item itemTest1 = new Item("test1", "testDescription", 123L);
         Item itemTest2 = new Item("test2", "testDescription", 125L);
-        Item[] itemProv = {itemTest1, itemTest2};
+        ArrayList<Item> itemProv = new ArrayList<>();
+        itemProv.add(itemTest1);
+        itemProv.add(itemTest2);
         tracker.add(itemTest1);
         tracker.add(itemTest2);
         assertThat(tracker.findAll(), is(itemProv));
@@ -69,7 +74,9 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item itemTest1 = new Item("test1", "testDescription", 123L);
         Item itemTest2 = new Item("test1", "testDescription", 125L);
-        Item[] itemProv = {itemTest1, itemTest2};
+        ArrayList<Item> itemProv = new ArrayList<>();
+        itemProv.add(itemTest1);
+        itemProv.add(itemTest2);
         tracker.add(itemTest1);
         tracker.add(itemTest2);
         assertThat(tracker.findByName("test1"), is(itemProv));
@@ -84,6 +91,6 @@ public class TrackerTest {
         Item itemTest2 = new Item("test2", "testDescription", 125L);
         tracker.add(itemTest1);
         tracker.add(itemTest2);
-        assertThat(tracker.findById(tracker.findAll()[0].getId()), is(itemTest1));
+        assertThat(tracker.findById(tracker.findAll().get(0).getId()), is(itemTest1));
     }
 }

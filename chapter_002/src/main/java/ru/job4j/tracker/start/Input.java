@@ -1,5 +1,7 @@
 package ru.job4j.tracker.start;
 
+import java.util.ArrayList;
+
 /**
  * Интерфейс Input.
  *
@@ -20,5 +22,5 @@ public interface Input {
      * @param range - цифровой интервал.
      * @return - возвращает ответ в цифровом формате.
      */
-    int ask(String question, int[] range);
+    int ask(String question, ArrayList<Integer> range);
 }

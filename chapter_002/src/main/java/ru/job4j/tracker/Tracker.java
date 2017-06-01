@@ -1,7 +1,8 @@
 package ru.job4j.tracker;
 
 import ru.job4j.tracker.models.Item;
-import java.util.Arrays;
+
+import java.util.ArrayList;
 
 /**
  * Класс Tracker служит для хранения и обработки заявок.
@@ -13,7 +14,7 @@ public class Tracker {
     /**
      * Массив для хранения заявок.
      */
-    private Item[] items = new Item[10];
+    private ArrayList<Item> items = new ArrayList<>();
     /**
      * Счетчик заявок.
      */
@@ -36,7 +37,7 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(generateId());
-        this.items[count++] = item;
+        this.items.add(count++, item);
         return item;
     }
     /**
@@ -46,8 +47,8 @@ public class Tracker {
     public void update(Item item) {
         if (item != null) {
             for (int i = 0; i < this.count; i++) {
-                if (this.items[i].getId().equals(item.getId())) {
-                    this.items[i] = item;
+                if (this.items.get(i).getId().equals(item.getId())) {
+                    this.items.add(i, item);
                     break;
                 }
             }
@@ -60,8 +61,8 @@ public class Tracker {
     public void delete(Item item) {
         if (item != null) {
             for (int i = 0; i < this.count; i++) {
-                if (this.items[i].getId().equals(item.getId())) {
-                    System.arraycopy(this.items, i + 1, this.items, i, this.count - i - 1);
+                if (this.items.get(i).getId().equals(item.getId())) {
+                    this.items.remove(i);
                     this.count--;
                     break;
                 }
@@ -72,10 +73,10 @@ public class Tracker {
      * Метод получает спосок всех заявок.
      * @return - возвращает список всех заявок.
      */
-    public Item[] findAll() {
-        Item[] result = new Item[this.count];
+    public ArrayList<Item> findAll() {
+        ArrayList<Item> result = new ArrayList<>();
         for (int i = 0; i < this.count; i++) {
-            result[i] = this.items[i];
+            result.add(i, this.items.get(i));
         }
         return result;
     }
@@ -84,15 +85,15 @@ public class Tracker {
      * @param key - строка для поиска.
      * @return - возвращает список найденных заявок.
      */
-    public Item[] findByName(String key) {
-        Item[] result = new Item[10];
+    public ArrayList<Item> findByName(String key) {
+        ArrayList<Item> result = new ArrayList<>();
         int tmp = 0;
         for (int i = 0; i < this.count; i++) {
-            if (this.items[i].getName().equals(key)) {
-                result[tmp++] = this.items[i];
+            if (this.items.get(i).getName().equals(key)) {
+                result.add(tmp++, this.items.get(i));
             }
         }
-        return Arrays.copyOf(result, tmp);
+        return result;
     }
     /**
      * Метод поиска заявки по id.
