@@ -40,4 +40,53 @@ public class SortUserTest {
         ));
         assertThat(result, is(expected));
     }
+    /**
+     * test sort List by hashCode.
+     */
+    @Test
+    public void whenListOfUsersSortByUsersHashCode() {
+        List<User> users = new ArrayList<>();
+        users.addAll(Arrays.asList(
+                new User("Ivan", 50),
+                new User("Nikola", 17),
+                new User("Fedor", 45),
+                new User("Sasha", 25)
+        ));
+        SortUser sortUser = new SortUser();
+        List<User> result = sortUser.sortHash(users);
+        List<User> expected = new ArrayList<>(users);
+        for (int i = 0; i < expected.size() - 1; i++) {
+            for (int j = i + 1; j < expected.size(); j++) {
+                if (expected.get(i).hashCode() > expected.get(j).hashCode()) {
+                    User tmp = expected.get(i);
+                    expected.set(i, expected.get(j));
+                    expected.set(j, tmp);
+                }
+            }
+        }
+        assertThat(result, is(expected));
+    }
+    /**
+     * test sort List by name length.
+     */
+    @Test
+    public void whenListOfUsersSortByNameLength() {
+        List<User> users = new ArrayList<>();
+        users.addAll(Arrays.asList(
+                new User("Ivan", 50),
+                new User("Nikola", 17),
+                new User("Fedor", 45),
+                new User("Alexandr", 25)
+        ));
+        SortUser sortUser = new SortUser();
+        List<User> result = sortUser.sortLength(users);
+        List<User> expected = new ArrayList<>();
+        expected.addAll(Arrays.asList(
+                new User("Ivan", 50),
+                new User("Fedor", 45),
+                new User("Nikola", 17),
+                new User("Alexandr", 25)
+        ));
+        assertThat(result, is(expected));
+    }
 }
