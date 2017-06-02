@@ -16,10 +16,6 @@ public class Tracker {
      */
     private ArrayList<Item> items = new ArrayList<>();
     /**
-     * Счетчик заявок.
-     */
-    private int count = 0;
-    /**
      * Константа случайного числа.
      */
     private int countId = 0;
@@ -37,7 +33,7 @@ public class Tracker {
      */
     public Item add(Item item) {
         item.setId(generateId());
-        this.items.add(count++, item);
+        this.items.add(item);
         return item;
     }
     /**
@@ -46,9 +42,9 @@ public class Tracker {
      */
     public void update(Item item) {
         if (item != null) {
-            for (int i = 0; i < this.count; i++) {
+            for (int i = 0; i < this.items.size(); i++) {
                 if (this.items.get(i).getId().equals(item.getId())) {
-                    this.items.add(i, item);
+                    this.items.set(i, item);
                     break;
                 }
             }
@@ -60,13 +56,7 @@ public class Tracker {
      */
     public void delete(Item item) {
         if (item != null) {
-            for (int i = 0; i < this.count; i++) {
-                if (this.items.get(i).getId().equals(item.getId())) {
-                    this.items.remove(i);
-                    this.count--;
-                    break;
-                }
-            }
+            this.items.remove(item);
         }
     }
     /**
@@ -75,8 +65,8 @@ public class Tracker {
      */
     public ArrayList<Item> findAll() {
         ArrayList<Item> result = new ArrayList<>();
-        for (int i = 0; i < this.count; i++) {
-            result.add(i, this.items.get(i));
+        for (int i = 0; i < this.items.size(); i++) {
+            result.add(this.items.get(i));
         }
         return result;
     }
@@ -87,10 +77,9 @@ public class Tracker {
      */
     public ArrayList<Item> findByName(String key) {
         ArrayList<Item> result = new ArrayList<>();
-        int tmp = 0;
-        for (int i = 0; i < this.count; i++) {
+        for (int i = 0; i < this.items.size(); i++) {
             if (this.items.get(i).getName().equals(key)) {
-                result.add(tmp++, this.items.get(i));
+                result.add(this.items.get(i));
             }
         }
         return result;
