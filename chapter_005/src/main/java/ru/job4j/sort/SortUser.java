@@ -1,9 +1,6 @@
 package ru.job4j.sort;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Class SortUser.
@@ -32,14 +29,7 @@ public class SortUser {
      * @return sorted list of users.
      */
     public List<User> sortHash(List<User> list) {
-        list.sort(
-                new Comparator<User>() {
-                    @Override
-                    public int compare(User o1, User o2) {
-                        return Integer.compare(o1.hashCode(), o2.hashCode());
-                    }
-                }
-        );
+        Collections.sort(list, (o1, o2) -> Integer.compare(o1.hashCode(), o2.hashCode()));
         return list;
     }
 
@@ -49,14 +39,7 @@ public class SortUser {
      * @return sorted list of users.
      */
     public List<User> sortLength(List<User> list) {
-        list.sort(
-                new Comparator<User>() {
-                    @Override
-                    public int compare(User o1, User o2) {
-                        return Integer.compare(o1.getName().length(), o2.getName().length());
-                    }
-                }
-        );
+        Collections.sort(list, (o1, o2) -> Integer.compare(o1.getName().length(), o2.getName().length()));
         return list;
     }
 }
