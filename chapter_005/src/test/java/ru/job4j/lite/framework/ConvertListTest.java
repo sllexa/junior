@@ -1,4 +1,4 @@
-package ru.job4j.framework;
+package ru.job4j.lite.framework;
 
 import org.junit.Test;
 

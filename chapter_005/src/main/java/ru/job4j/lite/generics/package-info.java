@@ -3,6 +3,6 @@
  *
  * @author Aleksey Slivko
  * @version $1.0$
- * @since 02.06.2017
+ * @since 01.06.2017
  */
-package ru.job4j.sort;
+package ru.job4j.lite.generics;

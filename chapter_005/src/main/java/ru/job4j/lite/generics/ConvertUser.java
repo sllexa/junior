@@ -1,4 +1,4 @@
-package ru.job4j.generics;
+package ru.job4j.lite.generics;
 
 import java.util.HashMap;
 import java.util.List;

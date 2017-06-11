@@ -1,4 +1,4 @@
-package ru.job4j.sort;
+package ru.job4j.lite.sort;
 
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
