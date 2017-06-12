@@ -16,7 +16,7 @@ public class Bank {
     /**
      * map with key - user and value - list of user accounts.
      */
-    Map<User, List<Account>> map = new HashMap<>();
+    private Map<User, List<Account>> map = new HashMap<>();
     /**
      * Add client to bank.
      * @param user - bank client.
@@ -112,5 +112,12 @@ public class Bank {
             }
         }
         return result;
+    }
+    /**
+     * Getter copy of map.
+     * @return copy of map.
+     */
+    Map<User, List<Account>> getMap() {
+        return this.map;
     }
 }

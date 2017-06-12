@@ -27,7 +27,7 @@ public class BankTest {
         bank.addUser(new User("Maxim", 45098775));
         bank.addUser(new User("Nikola", 72814612));
         bank.addUser(new User("Mary", 20015088));
-        Map<User, List<Account>> result = bank.map;
+        Map<User, List<Account>> result = bank.getMap();
         Map<User, List<Account>> expected = new HashMap<>();
         expected.put(new User("Maxim", 45098775), new ArrayList<>());
         expected.put(new User("Nikola", 72814612), new ArrayList<>());
@@ -44,7 +44,7 @@ public class BankTest {
         bank.addUser(new User("Nikola", 72814612));
         bank.addUser(new User("Mary", 20015088));
         bank.deleteUser(new User("Nikola", 72814612));
-        Map<User, List<Account>> result = bank.map;
+        Map<User, List<Account>> result = bank.getMap();
         Map<User, List<Account>> expected = new HashMap<>();
         expected.put(new User("Maxim", 45098775), new ArrayList<>());
         expected.put(new User("Mary", 20015088), new ArrayList<>());
@@ -61,7 +61,7 @@ public class BankTest {
         bank.addUser(firstUser);
         bank.addUser(secondUser);
         bank.addAccountToUser(secondUser, new Account(000445));
-        Map<User, List<Account>> result = bank.map;
+        Map<User, List<Account>> result = bank.getMap();
         Map<User, List<Account>> expected = new HashMap<>();
         expected.put(firstUser, new ArrayList<>());
         List<Account> list = new ArrayList<>();
@@ -82,7 +82,7 @@ public class BankTest {
         bank.addAccountToUser(secondUser, new Account(000445));
         bank.addAccountToUser(secondUser, new Account(000333));
         bank.deleteAccountFromUser(secondUser, new Account(000445));
-        Map<User, List<Account>> result = bank.map;
+        Map<User, List<Account>> result = bank.getMap();
         Map<User, List<Account>> expected = new HashMap<>();
         expected.put(firstUser, new ArrayList<>());
         List<Account> list = new ArrayList<>();
