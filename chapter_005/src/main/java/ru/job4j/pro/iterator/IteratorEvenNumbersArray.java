@@ -33,11 +33,7 @@ public class IteratorEvenNumbersArray implements Iterator {
      */
     @Override
     public boolean hasNext() {
-        boolean result = false;
-        if (this.getEvenIndex() != -1) {
-            result = true;
-        }
-        return result;
+        return this.getEvenIndex() != -1;
     }
 
     /**

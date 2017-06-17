@@ -32,21 +32,7 @@ public class IteratorPrimeNumbers implements Iterator {
      */
     @Override
     public boolean hasNext() {
-        boolean result = false;
-        if (this.index >= this.values.length) {
-            result = false;
-        } else {
-            int num = this.index;
-            while (num < this.values.length) {
-                if (this.isPrimeNumber(this.values[num])) {
-                    result = true;
-                    num = this.values.length;
-                } else {
-                    num++;
-                }
-            }
-        }
-        return result;
+        return this.getPrimeIndex() != -1;
     }
     /**
      * Get next prime number.
@@ -54,15 +40,11 @@ public class IteratorPrimeNumbers implements Iterator {
      */
     @Override
     public Object next() {
-        Object result = null;
-        while (this.index < this.values.length) {
-            if (this.isPrimeNumber(this.values[this.index])) {
-                result = this.values[this.index];
-                break;
-            }
-            this.index++;
-        }
+
+        this.index = this.getPrimeIndex();
+        Object result = this.values[this.index];
         this.index++;
+
         return result;
     }
 
@@ -80,6 +62,21 @@ public class IteratorPrimeNumbers implements Iterator {
                 if (num % i == 0) {
                     result = false;
                 }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Will find the index of a prime number.
+     * @return - prime index.
+     */
+    private int getPrimeIndex() {
+        int result = -1;
+        for (int i = this.index; i < this.values.length; i++) {
+            if (this.isPrimeNumber(this.values[i])) {
+                result = i;
+                break;
             }
         }
         return result;
