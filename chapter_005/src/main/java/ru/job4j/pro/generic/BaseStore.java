@@ -34,30 +34,49 @@ public abstract class BaseStore<T extends Base> implements Store<T> {
 
     /**
      * Update method.
-     * @param position - of Base object.
+     * @param id - of Base object.
      * @param value - new value.
      */
     @Override
-    public void update(int position, T value) {
-        this.arr.update(position, value);
+    public void update(String id, T value) {
+        int index = this.getIndex(id);
+        this.arr.update(index, value);
     }
 
     /**
      * Delete method.
-     * @param position - of element.
+     * @param id - of element.
      */
     @Override
-    public void delete(int position) {
-        this.arr.delete(position);
+    public void delete(String id) {
+        int index = this.getIndex(id);
+        this.arr.delete(index);
     }
 
     /**
      * Get method.
-     * @param position - position.
+     * @param id - position.
      * @return - value.
      */
     @Override
-    public T get(int position) {
-        return this.arr.get(position);
+    public T get(String id) {
+        int index = this.getIndex(id);
+        return this.arr.get(index);
+    }
+
+    /**
+     * GetIndex method.
+     * @param id - string id
+     * @return - number index
+     */
+    private int getIndex(String id) {
+        int index = -1;
+        for (int i = 0; i < arr.getSize(); i++) {
+            if (id != null && arr.get(i).getId().equals(id)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 }

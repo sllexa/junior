@@ -62,4 +62,12 @@ public class SimpleArray<T> {
     public T get(int position) {
         return (T) this.arr[position];
     }
+
+    /**
+     * Get size array.
+     * @return - number
+     */
+    public int getSize() {
+        return index;
+    }
 }

@@ -18,21 +18,21 @@ public interface Store<T extends Base> {
 
     /**
      * Update method.
-     * @param position - of Base object.
+     * @param id - of Base object.
      * @param value - new value.
      */
-    void update(int position, T value);
+    void update(String id, T value);
 
     /**
      * Delete method.
-     * @param position - of element.
+     * @param id - of element.
      */
-    void delete(int position);
+    void delete(String id);
 
     /**
      * Get method.
-     * @param position - position.
+     * @param id - position.
      * @return - value.
      */
-    T get(int position);
+    T get(String id);
 }
