@@ -1,6 +1,7 @@
 package ru.job4j.pro.list;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Class LinkedContainer.
@@ -86,6 +87,63 @@ public class LinkedContainer<E> implements SimpleContainer<E> {
         };
     }
 
+    /**
+     * Links e as first element.
+     * @param e - value
+     */
+    public void linkFirst(E e) {
+        final Unit<E> f = first;
+        final Unit<E> newUnit = new Unit<>(null, e, f);
+        first = newUnit;
+        if (f == null) {
+            last = newUnit;
+        } else {
+            f.prev = newUnit;
+        }
+        size++;
+    }
+
+    /**
+     * Removes and returns the first element from this list.
+     * @return the first element from this list
+     * @throws NoSuchElementException if this list is empty
+     */
+    public E removeFirst() {
+        final Unit<E> f = first;
+        if (f == null) {
+            throw new NoSuchElementException();
+        }
+        return unlinkFirst(f);
+    }
+
+    /**
+     * Retrieves and removes the head (first element) of this list.
+     * @return - element
+     */
+    public E poll() {
+        final Unit<E> f = first;
+        return (f == null) ? null : unlinkFirst(f);
+    }
+    /**
+     * Unlinks non-null first unit f.
+     * @param f - first element
+     * @return - value
+     */
+    private E unlinkFirst(Unit<E> f) {
+        // assert f == first && f != null;
+        final E element = f.item;
+        final Unit<E> next = f.next;
+        f.item = null;
+        f.next = null; // help GC
+        first = next;
+        if (next == null) {
+            last = null;
+        } else {
+            next.prev = null;
+        }
+        size--;
+        return element;
+    }
     /**
      * Unit - of LinkedList.
      * @param <E> - type value
