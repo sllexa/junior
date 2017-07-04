@@ -31,7 +31,24 @@ public class CycleNodeTest {
     }
 
     /**
-     * Test method hssCycle.
+     * Link begin with begin.
+     */
+    @Test
+    public void whenLinkingBeginWithBeginThenTrue(){
+        Node<Integer> first = new Node<>(1);
+        Node<Integer> second = new Node<>(2);
+        Node<Integer> third = new Node<>(3);
+        Node<Integer> four = new Node<>(4);
+
+        first.setNext(second);
+        second.setNext(third);
+        third.setNext(four);
+        four.setNext(second);
+
+        Assert.assertTrue(new CycleNode().hasCycle(first));
+    }
+    /**
+     * Test method hasCycle.
      */
     @Test
     public void whenListOfNodesHasNotCycleThenReturnFalse() {

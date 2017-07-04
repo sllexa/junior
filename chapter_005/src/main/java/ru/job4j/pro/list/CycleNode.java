@@ -16,13 +16,22 @@ public class CycleNode {
      */
     public boolean hasCycle(Node first) {
         boolean result = false;
-        Node tmp = first;
-        while (tmp.getNext() != null) {
-            if (tmp.getNext() == tmp || tmp.getNext() == first) {
+        Node slowNode = first;
+        Node fastNode = first;
+
+        while (fastNode.getNext() != null) {
+            slowNode = slowNode.getNext();
+            fastNode = fastNode.getNext().getNext();
+
+            if (slowNode == null || fastNode == null) {
+                result = false;
+                break;
+            }
+
+            if (slowNode == fastNode) {
                 result = true;
                 break;
             }
-            tmp = tmp.getNext();
         }
         return result;
     }
