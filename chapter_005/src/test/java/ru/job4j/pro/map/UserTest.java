@@ -18,7 +18,7 @@ import java.util.Map;
 public class UserTest {
     /**
      * Test create and add users in HashMap.
-     * Method hashCode not override.
+     * Method hashCode override.
      * Method equals override.
      */
     @Test
@@ -36,5 +36,6 @@ public class UserTest {
         System.out.println(map);
 
         assertThat(firstUser.equals(secondUser), is(true));
+        assertThat(firstUser.hashCode(), is(secondUser.hashCode()));
     }
 }
