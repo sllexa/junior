@@ -18,8 +18,8 @@ import java.util.Map;
 public class UserTest {
     /**
      * Test create and add users in HashMap.
-     * Method hashCode override.
-     * Method equals not override.
+     * Method hashCode not override.
+     * Method equals override.
      */
     @Test
     public void whenCreateTwoObjectAndAddInHashMapThenTwoUsers() {
@@ -35,6 +35,6 @@ public class UserTest {
 
         System.out.println(map);
 
-        assertThat(firstUser.hashCode(), is(secondUser.hashCode()));
+        assertThat(firstUser.equals(secondUser), is(true));
     }
 }
