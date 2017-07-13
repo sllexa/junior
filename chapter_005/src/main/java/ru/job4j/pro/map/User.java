@@ -36,6 +36,29 @@ public class User {
     }
 
     /**
+     * Getter user name.
+     * @return - name
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Getter children.
+     * @return - children
+     */
+    public int getChildren() {
+        return this.children;
+    }
+
+    /**
+     * Getter birthday.
+     * @return - birthday
+     */
+    public Calendar getBirthday() {
+        return this.birthday;
+    }
+    /**
      * Override method equals.
       * @param o - object
      * @return - yes or not

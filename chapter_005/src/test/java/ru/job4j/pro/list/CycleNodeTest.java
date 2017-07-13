@@ -34,7 +34,7 @@ public class CycleNodeTest {
      * Link begin with begin.
      */
     @Test
-    public void whenLinkingBeginWithBeginThenTrue(){
+    public void whenLinkingBeginWithBeginThenTrue() {
         Node<Integer> first = new Node<>(1);
         Node<Integer> second = new Node<>(2);
         Node<Integer> third = new Node<>(3);
