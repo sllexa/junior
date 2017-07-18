@@ -20,7 +20,7 @@ public class FastAddSetTest {
      */
     @Test
     public void whenAddElementsThenGetWithIterator() {
-        FastAddSet<String> set = new FastAddSet<>();
+        FastAddSet<String> set = new FastAddSet<>(2);
         String[] arrStr = {"003", "001", "000", "003", "002", "001", "002"};
 
         for (String str : arrStr) {
@@ -37,5 +37,44 @@ public class FastAddSetTest {
         }
 
         assertThat(result, is(expected));
+    }
+
+    /**
+     * Measure the speed of adding elements.
+     */
+    @Test
+    public void whenAddElementsThenTrue() {
+        long fastTime = addFastTime();
+        long setTime = addSetTime();
+
+        assertThat(fastTime < setTime, is(true));
+    }
+
+    /**
+     * Measure the speed of adding elements.
+     * @return - time
+     */
+    private long addFastTime() {
+        FastAddSet<Integer> set = new FastAddSet<>(2);
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 10000; i++) {
+            set.add(i);
+        }
+        long finish = System.currentTimeMillis();
+        return finish - start;
+    }
+
+    /**
+     * Measure the speed of adding elements.
+     * @return - time
+     */
+    private long addSetTime() {
+        ArraySetContainer<Integer> set = new ArraySetContainer<>(2);
+        long start = System.currentTimeMillis();
+        for (int i = 0; i < 10000; i++) {
+            set.add(i);
+        }
+        long finish = System.currentTimeMillis();
+        return finish - start;
     }
 }

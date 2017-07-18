@@ -1,7 +1,5 @@
 package ru.job4j.pro.set;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Iterator;
 
 /**
@@ -14,13 +12,20 @@ import java.util.Iterator;
  */
 public class FastAddSet<E> implements SampleSet<E> {
     /**
-     * ArrayList.
+     * Array of object.
      */
-     private ArrayList<E> list = new ArrayList<>();
+    private Object[] container;
     /**
-     * Index for iterator.
+     * Index.
      */
     private int index = 0;
+    /**
+     * Constructor.
+     * @param size - size of array
+     */
+    public FastAddSet(int size) {
+        this.container = new Object[size];
+    }
 
     /**
      * Method add object in array.
@@ -28,46 +33,22 @@ public class FastAddSet<E> implements SampleSet<E> {
      */
     @Override
     public void add(E elem) {
-        boolean result = false;
-
-        if (this.list.size() > 1 && !this.checkFast(elem)) {
-            this.list.add(elem);
-            result = true;
-        }
-        if (this.list.size() < 2) {
-            this.list.add(elem);
-            result = true;
-        }
-        if (result && this.list.size() > 1) {
-            this.list.sort(Comparator.comparingInt(Object::hashCode));
+        this.expand();
+        int ind = (elem.hashCode() & 0x7FFFFFFF) % this.container.length;
+        if (this.container[ind] == null) {
+            this.container[ind] = elem;
+            this.index++;
         }
     }
-
     /**
-     * Fast check equals element in Array.
-     * @param elem - object need found
-     * @return - yes or not
+     * Expand size of array in doubly.
      */
-    private boolean checkFast(E elem) {
-        boolean result = false;
-        int top = 0;
-        int bottom = this.list.size() - 1;
-
-        while (true) {
-            int center = top + (bottom - top) / 2;
-            if (this.list.get(center).hashCode() == elem.hashCode()) {
-                result = true;
-                break;
-            } else if (this.list.get(center).hashCode() > elem.hashCode()) {
-                bottom = center;
-            } else {
-                top = center + 1;
-            }
-            if (center >= bottom) {
-                break;
-            }
+    private void expand() {
+        if (this.index == this.container.length) {
+            Object[] newc = new Object[this.container.length * 2];
+            System.arraycopy(this.container, 0, newc, 0, this.container.length);
+            this.container = newc;
         }
-        return result;
     }
 
     /**
@@ -82,12 +63,12 @@ public class FastAddSet<E> implements SampleSet<E> {
 
             @Override
             public boolean hasNext() {
-                return index < list.size();
+                return index > itInd;
             }
 
             @Override
             public E next() {
-                return list.get(index++);
+                return (E) container[this.itInd++];
             }
         };
     }
