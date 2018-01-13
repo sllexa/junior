@@ -21,7 +21,7 @@ public class FastAddSetTest {
     @Test
     public void whenAddElementsThenGetWithIterator() {
         FastAddSet<String> set = new FastAddSet<>(2);
-        String[] arrStr = {"003", "001", "000", "003", "002", "001", "002"};
+        String[] arrStr = {"000", "001", "000", "003", "002", "001", "002"};
 
         for (String str : arrStr) {
             set.add(str);
