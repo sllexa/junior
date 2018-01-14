@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
 */
 public class PointTest {
 	/**
-	* Тест метода is.
+	* РўРµСЃС‚ РјРµС‚РѕРґР° is.
 	*/
 	@Test
 	public void setArgumentsOfFunctionAndSpecificPointHappyPath() {

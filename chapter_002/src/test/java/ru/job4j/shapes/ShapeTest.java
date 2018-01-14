@@ -23,7 +23,7 @@ public class ShapeTest {
         System.setOut(new PrintStream(out));
         Paint shape = new Paint();
         shape.draw(new Square());
-        assertThat(out.toString(), is("* * *\n*   *\n* * *\r\n"));
+        assertThat(out.toString(), is(String.format("* * *%1$s*   *%1$s* * *%1$s", System.lineSeparator())));
     }
     /**
      * Тест печати треугольника.
@@ -34,6 +34,6 @@ public class ShapeTest {
         System.setOut(new PrintStream(out));
         Paint shape = new Paint();
         shape.draw(new Triangle());
-        assertThat(out.toString(), is("   *\n *   *\n*  *  *\r\n"));
+        assertThat(out.toString(), is(String.format("   *%1$s *   *%1$s*  *  *%1$s", System.lineSeparator())));
     }
 }
