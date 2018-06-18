@@ -32,13 +32,11 @@ public class PhoneDictionary {
      */
     public List<Person> find(String key) {
         List<Person> result = new ArrayList<>();
-        int ind = 0;
         for (Person people : person) {
             if (people.getName().contains(key) || people.getSurname().contains(key)
                     || people.getPhone().contains(key) || people.getAddress().contains(key)
                     ) {
-                result.add(ind, people);
-                ind++;
+                result.add(people);
             }
         }
         return result;
