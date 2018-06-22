@@ -27,9 +27,6 @@ public class ConvertList2Array {
                 i++;
                 j = 0;
             }
-            if (num == null) {
-                num = 0;
-            }
             array[i][j++] = num;
         }
         return array;
