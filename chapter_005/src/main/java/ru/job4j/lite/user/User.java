@@ -37,7 +37,15 @@ public class User implements Comparable<User> {
      * @return - user name.
      */
     public String getName() {
-        return name;
+        return this.name;
+    }
+
+    /**
+     * Getter user age.
+     * @return - user age.
+     */
+    public int getAge() {
+        return this.age;
     }
 
     @Override

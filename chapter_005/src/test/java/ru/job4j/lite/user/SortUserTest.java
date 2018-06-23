@@ -66,4 +66,28 @@ public class SortUserTest {
         ));
         assertThat(result, is(expect));
     }
+
+    /**
+     * Test sort List by all fields.
+     */
+    @Test
+    public void whenListOfUserSortByAllFields() {
+        List<User> users = new ArrayList<>();
+        users.addAll(Arrays.asList(
+                new User("Alexandr", 50),
+                new User("Ivan", 36),
+                new User("Alexandr", 25),
+                new User("Ivan", 30)
+        ));
+        SortUser sortUser = new SortUser();
+        List<User> result = sortUser.sortByAllFields(users);
+        List<User> expect = new ArrayList<>();
+        expect.addAll(Arrays.asList(
+                new User("Alexandr", 25),
+                new User("Alexandr", 50),
+                new User("Ivan", 30),
+                new User("Ivan", 36)
+        ));
+        assertThat(result, is(expect));
+    }
 }
