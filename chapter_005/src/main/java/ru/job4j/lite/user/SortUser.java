@@ -27,7 +27,7 @@ public class SortUser {
      * @param list of users.
      * @return - sorted list of users.
      */
-    public List<User> sortNameLenght(List<User> list) {
+    public List<User> sortNameLength(List<User> list) {
         list.sort(new Comparator<User>() {
             @Override
             public int compare(User o1, User o2) {

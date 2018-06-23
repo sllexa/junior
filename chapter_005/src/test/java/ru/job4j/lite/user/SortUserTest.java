@@ -52,16 +52,16 @@ public class SortUserTest {
         users.addAll(Arrays.asList(
                 new User("Alexandr", 50),
                 new User("Nik", 17),
-                new User("Fedor", 25),
+                new User("Vasya", 25),
                 new User("Ivan", 36)
         ));
         SortUser sortUser = new SortUser();
-        List<User> result = sortUser.sortNameLenght(users);
+        List<User> result = sortUser.sortNameLength(users);
         List<User> expect = new ArrayList<>();
         expect.addAll(Arrays.asList(
                 new User("Nik", 17),
                 new User("Ivan", 36),
-                new User("Fedor", 25),
+                new User("Vasya", 25),
                 new User("Alexandr", 50)
         ));
         assertThat(result, is(expect));
