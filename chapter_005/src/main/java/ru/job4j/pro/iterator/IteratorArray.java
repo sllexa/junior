@@ -1,6 +1,7 @@
 package ru.job4j.pro.iterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Class IteratorArray.
@@ -37,7 +38,7 @@ public class IteratorArray implements Iterator {
      */
     @Override
     public boolean hasNext() {
-        return value.length > ind1 && value[0].length > ind2;
+        return this.value.length > this.ind1;
     }
 
     /**
@@ -46,11 +47,14 @@ public class IteratorArray implements Iterator {
      */
     @Override
     public Object next() {
-        Object result = value[ind1][ind2++];
+        if (this.ind1 >= this.value.length) {
+            throw new NoSuchElementException();
+        }
 
-        if (ind2 >= value[ind1].length) {
-            ind1++;
-            ind2 = 0;
+        Object result = this.value[ind1][ind2++];
+        if (ind2 >= this.value[ind1].length) {
+            this.ind1++;
+            this.ind2 = 0;
         }
         return result;
     }
