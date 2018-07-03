@@ -1,6 +1,7 @@
 package ru.job4j.pro.iterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Class IteratorPrimeNumbers.
@@ -40,12 +41,11 @@ public class IteratorPrimeNumbers implements Iterator {
      */
     @Override
     public Object next() {
-
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
         this.index = this.getPrimeIndex();
-        Object result = this.values[this.index];
-        this.index++;
-
-        return result;
+        return this.values[this.index++];
     }
 
     /**
@@ -58,7 +58,7 @@ public class IteratorPrimeNumbers implements Iterator {
         if (num == 0 || num == 1) {
             result = false;
         } else {
-            for (int i = 2; i <= num / 2; i++) {
+            for (int i = 2; i < num; i++) {
                 if (num % i == 0) {
                     result = false;
                 }
