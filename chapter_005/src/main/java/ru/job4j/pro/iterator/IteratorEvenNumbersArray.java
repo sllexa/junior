@@ -1,6 +1,7 @@
 package ru.job4j.pro.iterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Class IteratorEvenNumbersArray.
@@ -42,11 +43,12 @@ public class IteratorEvenNumbersArray implements Iterator {
      */
     @Override
     public Object next() {
-
+        if (!hasNext()) {
+            throw new NoSuchElementException();
+        }
         this.index = this.getEvenIndex();
-        Object result = this.values[this.index];
-        this.index++;
-        return result;
+
+        return this.values[this.index++];
     }
 
     /**

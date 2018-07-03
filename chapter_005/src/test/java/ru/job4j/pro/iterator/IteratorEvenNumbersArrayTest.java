@@ -1,7 +1,9 @@
 package ru.job4j.pro.iterator;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import org.junit.Before;
 import org.junit.Test;
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -14,26 +16,67 @@ import static org.junit.Assert.assertThat;
  */
 public class IteratorEvenNumbersArrayTest {
     /**
-     * Test method next.
+     * Iterator.
      */
-    @Test
-    public void whenGetNextCallShouldPointerForward() {
-        IteratorEvenNumbersArray it = new IteratorEvenNumbersArray(new int[] {1, 2, 5, 6, 9, 10});
-        it.next();
-        int result = (int) it.next();
-        assertThat(result, is(6));
+    private Iterator<Integer> it;
+
+    /**
+     * Create new IteratorArray.
+     */
+    @Before
+    public void setUp() {
+        it = new IteratorEvenNumbersArray(new int[]{1, 2, 3, 4, 5, 6, 7});
     }
 
     /**
-     * Test method hasNext.
+     * Test method expected.
+     */
+    @Test(expected = NoSuchElementException.class)
+    public void shouldReturnEvenNumbersSequentially() {
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(2));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(4));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(6));
+        assertThat(it.hasNext(), is(false));
+        it.next();
+    }
+
+    /**
+     * Test methods hasNext and Next.
      */
     @Test
-    public void whenCheckNextPositionShouldReturnTrue() {
-        IteratorEvenNumbersArray it = new IteratorEvenNumbersArray(new int[] {1, 2, 5, 6, 9, 10});
-        it.next();
+    public void sequentialHasNextInvocationDoesntAffectRetrievalOrder() {
         assertThat(it.hasNext(), is(true));
-        it.next();
-        it.next();
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(2));
+        assertThat(it.next(), is(4));
+        assertThat(it.next(), is(6));
+    }
+
+    /**
+     * Test for the absence of even numbers.
+     */
+    @Test
+    public void  shouldReturnFalseIfNoAnyEvenNumbers() {
+        it = new IteratorEvenNumbersArray(new int[]{1});
         assertThat(it.hasNext(), is(false));
+    }
+
+    /**
+     * Test.
+     */
+    @Test
+    public void allNumbersAreEven() {
+        it = new IteratorEvenNumbersArray(new int[]{2, 4, 6, 8});
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(2));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(4));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(6));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(8));
     }
 }
