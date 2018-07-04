@@ -23,6 +23,7 @@ public class IteratorArrayTest {
     /**
      * Create new IteratorArray.
      */
+
     @Before
     public void setUp() {
         it = new IteratorArray(new int[][]{{1, 2, 3}, {4, 5}, {6}});
