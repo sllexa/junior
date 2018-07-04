@@ -1,6 +1,7 @@
 package ru.job4j.pro.iterator;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Class Converter.
@@ -9,58 +10,46 @@ import java.util.Iterator;
  * @version $1.0$
  * @since 16.06.2017
  */
-public class Converter implements IteratorConvert {
-    /**
-     * Iterator, which contains other Iterators.
-     */
-    private Iterator<Iterator<Integer>> extItr;
+public class Converter {
+
     /**
      * Method for convert Iterator<Iterator<Integer>> to Iterator<Integer>.
      * @param it Iterator<Iterator<Integer>>.
      * @return new Iterator<Integer>.
      */
-    public Iterator<Integer> convert(Iterator<Iterator<Integer>> it) {
-        this.extItr = it;
+    Iterator<Integer> convert(Iterator<Iterator<Integer>> it) {
 
-        InternalIterator result = new InternalIterator();
+        return new Iterator<Integer>() {
 
-        return result;
-    }
+            private Iterator<Integer> first;
+            private Iterator<Integer> second;
 
-    /**
-     * Class internal iterator.
-     */
-    private class InternalIterator implements Iterator<Integer> {
-        /**
-         * Internal iterator.
-         */
-        private Iterator<Integer> intItr;
-
-        /**
-         * Override method hasNext.
-         * @return - boolean.
-         */
-        @Override
-        public boolean hasNext() {
-            boolean result = false;
-            if (this.intItr != null && this.intItr.hasNext()) {
-                result = true;
-            } else {
-                result = extItr.hasNext();
+            @Override
+            public boolean hasNext() {
+                boolean result = false;
+                if (first != null && first.hasNext()) {
+                    result = true;
+                } else {
+                    while (it.hasNext()) {
+                        second = it.next();
+                        if (second.hasNext()) {
+                            first = second;
+                            result = true;
+                            break;
+                        }
+                    }
+                }
+                return result;
             }
-            return result;
-        }
 
-        /**
-         * Override method next.
-         * @return - integer.-
-         */
-        @Override
-        public Integer next() {
-            if (this.intItr == null || !this.intItr.hasNext()) {
-                this.intItr = extItr.next();
+            @Override
+            public Integer next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+
+                return first.next();
             }
-            return this.intItr.next();
-        }
+        };
     }
 }
