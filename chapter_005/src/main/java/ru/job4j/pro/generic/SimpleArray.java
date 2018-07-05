@@ -1,5 +1,7 @@
 package ru.job4j.pro.generic;
 
+import java.util.NoSuchElementException;
+
 /**
  * Class SimpleArray.
  *
@@ -31,6 +33,9 @@ public class SimpleArray<T> {
      * @param value - new value.
      */
     public void add(T value) {
+        if (this.index >= this.arr.length) {
+            throw new RuntimeException("Overflow");
+        }
         this.arr[this.index++] = value;
     }
 
@@ -40,6 +45,9 @@ public class SimpleArray<T> {
      * @param value - new value.
      */
     public void update(int position, T value) {
+        if (position < 0 || position >= this.index) {
+            throw new IndexOutOfBoundsException();
+        }
         this.arr[position] = value;
     }
 
@@ -48,10 +56,14 @@ public class SimpleArray<T> {
      * @param position - number cell.
      */
     public void delete(int position) {
+        if (position < 0 || position >= this.index) {
+            throw new IndexOutOfBoundsException();
+        }
         System.arraycopy(this.arr, position + 1, this.arr, position, this.index - position - 1);
         if (this.arr.length - 1 >= position) {
             this.arr[this.index - 1] = null;
         }
+        this.index--;
     }
 
     /**
@@ -60,6 +72,9 @@ public class SimpleArray<T> {
      * @return - value.
      */
     public T get(int position) {
+        if (position < 0 || position >= this.index) {
+            throw new ArrayIndexOutOfBoundsException();
+        }
         return (T) this.arr[position];
     }
 
@@ -68,6 +83,6 @@ public class SimpleArray<T> {
      * @return - number
      */
     public int getSize() {
-        return index;
+        return this.arr.length;
     }
 }
