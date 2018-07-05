@@ -1,7 +1,5 @@
 package ru.job4j.pro.generic;
 
-import java.util.NoSuchElementException;
-
 /**
  * Class SimpleArray.
  *

@@ -1,7 +1,7 @@
 package ru.job4j.pro.generic;
 
 import org.junit.Test;
-import java.util.NoSuchElementException;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -13,7 +13,9 @@ import static org.junit.Assert.assertThat;
  * @since 21.06.2017
  */
 public class SimpleArrayTest {
-
+    /**
+     * Test RuntimeException.
+     */
     @Test(expected = RuntimeException.class)
     public void addTestWhenOverflow() {
         SimpleArray<String> simpleArray = new SimpleArray<>(1);
@@ -21,6 +23,9 @@ public class SimpleArrayTest {
         simpleArray.add("Second");
     }
 
+    /**
+     * Test IndexOutOfBoundsException.
+     */
     @Test(expected = IndexOutOfBoundsException.class)
     public void setTestWhenIndexOutOfBoundsException() {
         SimpleArray<String> simpleArray = new SimpleArray<>(3);
@@ -28,6 +33,9 @@ public class SimpleArrayTest {
         simpleArray.update(3, "Third");
     }
 
+    /**
+     * Test method get ArrayIndexOutOfBoundsException.
+     */
     @Test(expected = ArrayIndexOutOfBoundsException.class)
     public void getTestArrayIndexOutOfBoundsException() {
         SimpleArray<String> simpleArray = new SimpleArray<>(1);
@@ -35,6 +43,9 @@ public class SimpleArrayTest {
         simpleArray.get(1);
     }
 
+    /**
+     * Test method delete.
+     */
     @Test(expected = IndexOutOfBoundsException.class)
     public void deleteTestIndexOutOfBoundsException() {
         SimpleArray<String> simpleArray = new SimpleArray<>(1);
