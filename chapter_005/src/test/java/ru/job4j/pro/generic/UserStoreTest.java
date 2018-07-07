@@ -19,10 +19,10 @@ public class UserStoreTest {
     @Test
     public void whenAddUserInUserStoreTheGetUser() {
         UserStore usst = new UserStore(2);
-        usst.add(new User("001"));
-        usst.add(new User("002"));
+        usst.add(new User("Alex"));
+        usst.add(new User("Nina"));
 
-        assertThat(usst.get("001"), is(new User("001")));
+        assertThat(usst.get("Nina"), is(new User("Nina")));
     }
     /**
      * Test update method.
@@ -30,10 +30,10 @@ public class UserStoreTest {
     @Test
     public void whenAddUserAndUpdateTheChangeUser() {
         UserStore usst = new UserStore(1);
-        usst.add(new User("001"));
-        usst.update("001", new User("005"));
+        usst.add(new User("Alex"));
+        usst.update("Alex", new User("Nina"));
 
-        assertThat(usst.get("005"), is(new User("005")));
+        assertThat(usst.get("Nina"), is(new User("Nina")));
     }
     /**
      * Test delete method.

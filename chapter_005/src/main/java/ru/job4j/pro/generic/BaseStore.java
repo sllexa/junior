@@ -39,8 +39,7 @@ public abstract class BaseStore<T extends Base> implements Store<T> {
      */
     @Override
     public void update(String id, T value) {
-        int index = this.getIndex(id);
-        this.arr.update(index, value);
+        this.arr.update(this.getIndex(id), value);
     }
 
     /**
@@ -49,8 +48,7 @@ public abstract class BaseStore<T extends Base> implements Store<T> {
      */
     @Override
     public void delete(String id) {
-        int index = this.getIndex(id);
-        this.arr.delete(index);
+        this.arr.delete(this.getIndex(id));
     }
 
     /**
@@ -60,8 +58,7 @@ public abstract class BaseStore<T extends Base> implements Store<T> {
      */
     @Override
     public T get(String id) {
-        int index = this.getIndex(id);
-        return this.arr.get(index);
+        return this.arr.get(this.getIndex(id));
     }
 
     /**

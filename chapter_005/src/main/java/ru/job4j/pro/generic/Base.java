@@ -11,13 +11,13 @@ public abstract class Base {
     /**
      * id.
      */
-    private String id;
+    private final String id;
 
     /**
      * Constructor.
      * @param id - id.
      */
-    public Base(String id) {
+    public Base(final String id) {
         this.id = id;
     }
 
@@ -27,14 +27,6 @@ public abstract class Base {
      */
     public String getId() {
         return this.id;
-    }
-
-    /**
-     * Setter.
-     * @param id - new id.
-     */
-    public void setId(String id) {
-        this.id = id;
     }
 
     /**
