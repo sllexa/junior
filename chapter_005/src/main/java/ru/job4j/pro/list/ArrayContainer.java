@@ -1,6 +1,9 @@
 package ru.job4j.pro.list;
 
+import java.util.Arrays;
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Class ArrayContainer.
@@ -10,7 +13,7 @@ import java.util.Iterator;
  * @since 25.06.2017
  * @param <E> - generic
  */
-public class ArrayContainer<E> implements SimpleContainer<E> {
+public class ArrayContainer<E> implements Iterable<E> {
     /**
      * Array of object.
      */
@@ -19,6 +22,18 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
      * Index.
      */
     private int index = 0;
+    /**
+     * collection size change counter.
+     */
+    private int modCount = 0;
+    /**
+     * Index Iterator.
+     */
+    private int itInd;
+    /**
+     * Expected size collection.
+     */
+    private int expectedModCount = modCount;
 
     /**
      * Constructor.
@@ -33,9 +48,8 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
      */
     private void expand() {
         if (this.index == this.container.length) {
-            Object[] newc = new Object[this.container.length * 2];
-            System.arraycopy(this.container, 0, newc, 0, this.container.length);
-            this.container = newc;
+            this.container = Arrays.copyOf(this.container, this.container.length * 2);
+            this.modCount++;
         }
     }
 
@@ -43,7 +57,6 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
      * Add method.
      * @param value - value
      */
-    @Override
     public void add(E value) {
         this.expand();
         this.container[this.index++] = value;
@@ -54,7 +67,6 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
      * @param index - index
      * @return - value
      */
-    @Override
     public E get(int index) {
         return (E) this.container[index];
     }
@@ -67,16 +79,20 @@ public class ArrayContainer<E> implements SimpleContainer<E> {
     public Iterator<E> iterator() {
         return new Iterator<E>() {
 
-            private int itInd;
-
             @Override
             public boolean hasNext() {
-                return index > this.itInd;
+                return index > itInd;
             }
 
             @Override
             public E next() {
-                return (E) container[this.itInd++];
+                if (modCount != expectedModCount) {
+                    throw new ConcurrentModificationException("this collection has undergone a change");
+                }
+                if (!hasNext()) {
+                    throw new NoSuchElementException("there is no next element");
+                }
+                return (E) container[itInd++];
             }
         };
     }
