@@ -27,7 +27,6 @@ public class ArraySetContainerTest {
 
         Integer[] expected = {1, 2, 3, 4};
         Iterator itr = set.iterator();
-
         int ind = 0;
         while (itr.hasNext()) {
             assertThat(itr.next(), is(expected[ind++]));
