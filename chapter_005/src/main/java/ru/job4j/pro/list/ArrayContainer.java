@@ -26,10 +26,6 @@ public class ArrayContainer<E> implements Iterable<E> {
      * collection size change counter.
      */
     private int modCount = 0;
-    /**
-     * Index Iterator.
-     */
-    private int itInd;
 
     /**
      * Constructor.
@@ -75,6 +71,7 @@ public class ArrayContainer<E> implements Iterable<E> {
     public Iterator<E> iterator() {
         return new Iterator<E>() {
 
+            private int itInd;
             private int expectedModCount = modCount;
 
             @Override

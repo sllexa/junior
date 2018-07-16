@@ -125,6 +125,19 @@ public class ArrayContainerTest {
         container.add(11);
         assertThat(itr.next(), is(11));
     }
+
+    /**
+     * Bad test.
+     */
+    @Test
+    public void badTest() {
+        Iterator<Integer> iterator1 = container.iterator();
+        int a = iterator1.next();
+        assertThat(a, is(1));
+        Iterator<Integer> iterator2 = container.iterator();
+        int b = iterator2.next();
+        assertThat(b, is(1));
+    }
     /**
      * Test array container.
      */
