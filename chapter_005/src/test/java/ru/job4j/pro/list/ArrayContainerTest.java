@@ -20,7 +20,10 @@ public class ArrayContainerTest {
      * Container for tests.
      */
     private ArrayContainer<Integer> container = new ArrayContainer<>(10);
-
+    /**
+     * Create Iterator container.
+     */
+    private Iterator itr = container.iterator();
     /**
      * container filling.
      */
@@ -63,27 +66,27 @@ public class ArrayContainerTest {
      */
     @Test
     public void whenHasNextIsTrueAndNextHaveNextElements() {
-        assertThat(container.iterator().hasNext(), is(true));
-        assertThat(container.iterator().next(), is(1));
-        assertThat(container.iterator().hasNext(), is(true));
-        assertThat(container.iterator().next(), is(2));
-        assertThat(container.iterator().hasNext(), is(true));
-        assertThat(container.iterator().next(), is(3));
-        assertThat(container.iterator().hasNext(), is(true));
-        assertThat(container.iterator().next(), is(4));
-        assertThat(container.iterator().hasNext(), is(true));
-        assertThat(container.iterator().next(), is(5));
-        assertThat(container.iterator().hasNext(), is(true));
-        assertThat(container.iterator().next(), is(6));
-        assertThat(container.iterator().hasNext(), is(true));
-        assertThat(container.iterator().next(), is(7));
-        assertThat(container.iterator().hasNext(), is(true));
-        assertThat(container.iterator().next(), is(8));
-        assertThat(container.iterator().hasNext(), is(true));
-        assertThat(container.iterator().next(), is(9));
-        assertThat(container.iterator().hasNext(), is(true));
-        assertThat(container.iterator().next(), is(10));
-        assertThat(container.iterator().hasNext(), is(false));
+        assertThat(itr.hasNext(), is(true));
+        assertThat(itr.next(), is(1));
+        assertThat(itr.hasNext(), is(true));
+        assertThat(itr.next(), is(2));
+        assertThat(itr.hasNext(), is(true));
+        assertThat(itr.next(), is(3));
+        assertThat(itr.hasNext(), is(true));
+        assertThat(itr.next(), is(4));
+        assertThat(itr.hasNext(), is(true));
+        assertThat(itr.next(), is(5));
+        assertThat(itr.hasNext(), is(true));
+        assertThat(itr.next(), is(6));
+        assertThat(itr.hasNext(), is(true));
+        assertThat(itr.next(), is(7));
+        assertThat(itr.hasNext(), is(true));
+        assertThat(itr.next(), is(8));
+        assertThat(itr.hasNext(), is(true));
+        assertThat(itr.next(), is(9));
+        assertThat(itr.hasNext(), is(true));
+        assertThat(itr.next(), is(10));
+        assertThat(itr.hasNext(), is(false));
     }
 
     /**
@@ -91,17 +94,17 @@ public class ArrayContainerTest {
      */
     @Test(expected = NoSuchElementException.class)
     public void whenIteratorThrowNoSuchElementException() {
-        assertThat(container.iterator().next(), is(1));
-        assertThat(container.iterator().next(), is(2));
-        assertThat(container.iterator().next(), is(3));
-        assertThat(container.iterator().next(), is(4));
-        assertThat(container.iterator().next(), is(5));
-        assertThat(container.iterator().next(), is(6));
-        assertThat(container.iterator().next(), is(7));
-        assertThat(container.iterator().next(), is(8));
-        assertThat(container.iterator().next(), is(9));
-        assertThat(container.iterator().next(), is(10));
-        assertThat(container.iterator().next(), is(11));
+        assertThat(itr.next(), is(1));
+        assertThat(itr.next(), is(2));
+        assertThat(itr.next(), is(3));
+        assertThat(itr.next(), is(4));
+        assertThat(itr.next(), is(5));
+        assertThat(itr.next(), is(6));
+        assertThat(itr.next(), is(7));
+        assertThat(itr.next(), is(8));
+        assertThat(itr.next(), is(9));
+        assertThat(itr.next(), is(10));
+        assertThat(itr.next(), is(11));
     }
 
     /**
@@ -109,23 +112,23 @@ public class ArrayContainerTest {
      */
     @Test(expected = ConcurrentModificationException.class)
     public void whenIteratorThrowConcurrentModificationException() {
-        assertThat(container.iterator().next(), is(1));
-        assertThat(container.iterator().next(), is(2));
-        assertThat(container.iterator().next(), is(3));
-        assertThat(container.iterator().next(), is(4));
-        assertThat(container.iterator().next(), is(5));
-        assertThat(container.iterator().next(), is(6));
-        assertThat(container.iterator().next(), is(7));
-        assertThat(container.iterator().next(), is(8));
-        assertThat(container.iterator().next(), is(9));
-        assertThat(container.iterator().next(), is(10));
+        assertThat(itr.next(), is(1));
+        assertThat(itr.next(), is(2));
+        assertThat(itr.next(), is(3));
+        assertThat(itr.next(), is(4));
+        assertThat(itr.next(), is(5));
+        assertThat(itr.next(), is(6));
+        assertThat(itr.next(), is(7));
+        assertThat(itr.next(), is(8));
+        assertThat(itr.next(), is(9));
+        assertThat(itr.next(), is(10));
         container.add(11);
-        assertThat(container.iterator().next(), is(11));
+        assertThat(itr.next(), is(11));
     }
     /**
      * Test array container.
      */
-    @Test(expected = ConcurrentModificationException.class)
+    @Test
     public void whenAddElementsThenGetWithIterator() {
         ArrayContainer<String> arrCont = new ArrayContainer<>(2);
         String[] strArr = {"001", "002", "003", "004"};
