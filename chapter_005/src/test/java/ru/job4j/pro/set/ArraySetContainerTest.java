@@ -1,7 +1,6 @@
 package ru.job4j.pro.set;
 
 import org.junit.Test;
-import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 
 import static org.hamcrest.core.Is.is;
