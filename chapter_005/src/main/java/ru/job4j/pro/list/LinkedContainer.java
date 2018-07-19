@@ -2,6 +2,7 @@ package ru.job4j.pro.list;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.ConcurrentModificationException;
 
 /**
  * Class LinkedContainer.
@@ -11,7 +12,7 @@ import java.util.NoSuchElementException;
  * @since 26.06.2017
  * @param <E> - type
  */
-public class LinkedContainer<E> implements SimpleContainer<E> {
+public class LinkedContainer<E> implements Iterable<E> {
     /**
      * Size container.
      */
@@ -27,13 +28,12 @@ public class LinkedContainer<E> implements SimpleContainer<E> {
     /**
      * Container modifier.
      */
-    //private int linkMod = 0;
+    private int modCount = 0;
 
     /**
      * Add method.
      * @param value - value
      */
-    @Override
     public void add(E value) {
         Unit<E> l = this.last;
         Unit<E> newUnit = new Unit<>(l, value, null);
@@ -44,7 +44,7 @@ public class LinkedContainer<E> implements SimpleContainer<E> {
             l.next = newUnit;
         }
         this.size++;
-        //this.linkMod++;
+        this.modCount++;
     }
 
     /**
@@ -52,7 +52,6 @@ public class LinkedContainer<E> implements SimpleContainer<E> {
      * @param index - index
      * @return - E value
      */
-    @Override
     public E get(int index) {
         if (index >= this.size) {
             throw new IndexOutOfBoundsException();
@@ -71,8 +70,9 @@ public class LinkedContainer<E> implements SimpleContainer<E> {
     @Override
     public Iterator<E> iterator() {
         return new Iterator<E>() {
-
+            private int expectedModCount = modCount;
             private Unit<E> elem = first;
+
             @Override
             public boolean hasNext() {
                 return this.elem != null;
@@ -80,6 +80,12 @@ public class LinkedContainer<E> implements SimpleContainer<E> {
 
             @Override
             public E next() {
+                if (modCount != expectedModCount) {
+                    throw new ConcurrentModificationException("this collection has undergone a change");
+                }
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
                 E value = this.elem.item;
                 this.elem = this.elem.next;
                 return value;
@@ -142,6 +148,7 @@ public class LinkedContainer<E> implements SimpleContainer<E> {
             next.prev = null;
         }
         size--;
+        this.modCount++;
         return element;
     }
     /**
