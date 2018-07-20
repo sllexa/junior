@@ -14,7 +14,7 @@ public class QueueContainer<E> extends LinkedContainer<E> {
      * @param e - element
      */
     public void push(E e) {
-        super.linkFirst(e);
+        super.add(e);
     }
     /**
      * Removes and returns the first element.

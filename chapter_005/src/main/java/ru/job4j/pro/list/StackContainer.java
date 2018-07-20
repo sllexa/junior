@@ -24,6 +24,6 @@ public class StackContainer<E> extends LinkedContainer<E> {
      * @return - element
      */
     public E pop() {
-        return super.removeFirst();
+        return super.poll();
     }
 }

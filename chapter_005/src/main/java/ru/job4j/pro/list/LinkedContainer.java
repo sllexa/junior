@@ -107,19 +107,7 @@ public class LinkedContainer<E> implements Iterable<E> {
             f.prev = newUnit;
         }
         size++;
-    }
-
-    /**
-     * Removes and returns the first element from this list.
-     * @return the first element from this list
-     * @throws NoSuchElementException if this list is empty
-     */
-    public E removeFirst() {
-        final Unit<E> f = first;
-        if (f == null) {
-            throw new NoSuchElementException();
-        }
-        return unlinkFirst(f);
+        this.modCount++;
     }
 
     /**
@@ -127,7 +115,13 @@ public class LinkedContainer<E> implements Iterable<E> {
      * @return - element
      */
     public E poll() {
+        if (this.size < 1) {
+            throw new NoSuchElementException();
+        }
         final Unit<E> f = first;
+        if (f == null) {
+            throw new NoSuchElementException();
+        }
         return (f == null) ? null : unlinkFirst(f);
     }
     /**
@@ -136,7 +130,6 @@ public class LinkedContainer<E> implements Iterable<E> {
      * @return - value
      */
     private E unlinkFirst(Unit<E> f) {
-        // assert f == first && f != null;
         final E element = f.item;
         final Unit<E> next = f.next;
         f.item = null;
