@@ -1,8 +1,8 @@
 package ru.job4j.pro.list;
 
 import org.junit.Test;
-
 import org.junit.Assert;
+import ru.job4j.pro.list.CycleNode.Node;
 
 /**
  * Class CycleNodeTest.
@@ -13,15 +13,27 @@ import org.junit.Assert;
  */
 public class CycleNodeTest {
     /**
+     * The first item in the list.
+     */
+    private static Node<Integer> first = new Node<>(1);
+    /**
+     * The second element of the list.
+     */
+    private static Node<Integer> second = new Node<>(2);
+    /**
+     * The third element of the list.
+     */
+    private static Node<Integer> third = new Node<>(3);
+    /**
+     * The four element of the list.
+     */
+    private static Node<Integer> four = new Node<>(4);
+
+    /**
      * Test method hasCycle.
      */
     @Test
     public void whenListOfNodesHasCycleThenReturnTrue() {
-        Node<Integer> first = new Node<>(1);
-        Node<Integer> second = new Node<>(2);
-        Node<Integer> third = new Node<>(3);
-        Node<Integer> four = new Node<>(4);
-
         first.setNext(second);
         second.setNext(third);
         third.setNext(four);
@@ -35,11 +47,6 @@ public class CycleNodeTest {
      */
     @Test
     public void whenLinkingBeginWithBeginThenTrue() {
-        Node<Integer> first = new Node<>(1);
-        Node<Integer> second = new Node<>(2);
-        Node<Integer> third = new Node<>(3);
-        Node<Integer> four = new Node<>(4);
-
         first.setNext(second);
         second.setNext(third);
         third.setNext(four);
@@ -52,11 +59,6 @@ public class CycleNodeTest {
      */
     @Test
     public void whenListOfNodesHasNotCycleThenReturnFalse() {
-        Node<Integer> first = new Node<>(1);
-        Node<Integer> second = new Node<>(2);
-        Node<Integer> third = new Node<>(3);
-        Node<Integer> four = new Node<>(4);
-
         first.setNext(second);
         second.setNext(third);
         third.setNext(four);

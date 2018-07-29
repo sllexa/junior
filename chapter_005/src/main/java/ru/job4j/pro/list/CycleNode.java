@@ -15,20 +15,21 @@ public class CycleNode {
      * @return - true if list of node has cycle
      */
     public boolean hasCycle(Node first) {
+
         boolean result = false;
         Node slowNode = first;
         Node fastNode = first;
 
-        while (fastNode.getNext() != null) {
-            slowNode = slowNode.getNext();
-            fastNode = fastNode.getNext().getNext();
+        while (fastNode.next != null) {
+            slowNode = slowNode.next;
+            fastNode = fastNode.next.next;
 
             if (slowNode == null || fastNode == null) {
                 result = false;
                 break;
             }
 
-            if (slowNode == fastNode) {
+            if (slowNode.equals(fastNode)) {
                 result = true;
                 break;
             }
@@ -36,44 +37,44 @@ public class CycleNode {
         return result;
     }
 
+    /**
+     * Node.
+     * @param <T> element.
+     */
+    static class Node<T> {
+        /**
+         * Value that contains Node.
+         */
+        private T value;
+
+        /**
+         * Next Node.
+         */
+        private Node<T> next;
+
+        /**
+         * Constructor for Node.
+         * @param value for Node.
+         */
+        Node(T value) {
+            this.value = value;
+        }
+
+         /**
+         * Getter for next.
+         * @return next.
+         */
+        public Node<T> getNext() {
+            return this.next;
+        }
+
+        /**
+        * Setter for next.
+        * @param next for setting.
+        */
+        public void setNext(Node<T> next) {
+            this.next = next;
+        }
+    }
 }
 
-/**
- * Node.
- * @param <T> element.
- */
-class Node<T> {
-    /**
-     * Value that contains Node.
-     */
-    private T value;
-
-    /**
-     * Next Node.
-     */
-    private Node<T> next;
-
-    /**
-     * Constructor for Node.
-     * @param value for Node.
-     */
-    Node(T value) {
-        this.value = value;
-    }
-
-    /**
-     * Getter for next.
-     * @return next.
-     */
-    public Node<T> getNext() {
-        return this.next;
-    }
-
-    /**
-     * Setter for next.
-     * @param next for setting.
-     */
-    public void setNext(Node<T> next) {
-        this.next = next;
-    }
-}
