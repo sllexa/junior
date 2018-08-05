@@ -35,7 +35,7 @@ public class ArraySetContainer<E> extends ArrayContainer<E> {
 
     /**
      * Check duplicate.
-     * @param value - value
+     * @param value - value.
      * @return - true if contains element
      */
     private boolean duplicate(E value) {
