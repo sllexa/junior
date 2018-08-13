@@ -12,16 +12,19 @@ import java.util.Iterator;
  * @since 01.07.2017
  * @param <E> - type
  */
-public class LinkedSetContainer<E> extends LinkedContainer<E> {
+public class LinkedSetContainer<E> implements Iterable<E> {
+    /**
+     * Container for set.
+     */
+    private LinkedContainer<E> container = new LinkedContainer<>();
 
     /**
      * Add method.
      * @param value - value
      */
-    @Override
     public void add(E value) {
         if (value != null && !this.duplicate(value)) {
-            super.add(value);
+            this.container.add(value);
         }
     }
     /**
@@ -31,7 +34,7 @@ public class LinkedSetContainer<E> extends LinkedContainer<E> {
      */
     private boolean duplicate(E value) {
         boolean result = false;
-        Iterator<E> itr = super.iterator();
+        Iterator<E> itr = this.container.iterator();
         while (itr.hasNext()) {
             if (itr.next().equals(value)) {
                 result = true;
@@ -39,5 +42,10 @@ public class LinkedSetContainer<E> extends LinkedContainer<E> {
             }
         }
         return result;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return this.container.iterator();
     }
 }
