@@ -66,4 +66,22 @@ public class TreeTest {
         assertThat(itr.next(), is("Gorkogo 47"));
         assertThat(itr.hasNext(), is(false));
     }
+
+    /**
+     * Test method isBinary return true.
+     */
+    @Test
+    public void whenIsBinaryThenTrue() {
+        assertThat(tree.isBinary(), is(true));
+    }
+
+    /**
+     * Test method isBinary return false.
+     */
+    @Test
+    public void whenIsBinaryThenFalse() {
+        tree.add("Tverskaya", "Tver");
+        tree.add("Tverskaya", "Rzhev");
+        assertThat(tree.isBinary(), is(false));
+    }
 }
