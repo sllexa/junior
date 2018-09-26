@@ -46,24 +46,55 @@ public class StoreTest {
         previous.add(new Store.User(14, "Dennis"));
         previous.add(new Store.User(15, "Gulya"));
         current.addAll(previous);
+        store = new Store();
+    }
+
+    /**
+     * Test change element.
+     */
+    @Test
+    public void whenChangeOneElementThen1() {
         current.set(1, new Store.User(11, "Bob"));
+        info = store.diff(previous, current);
+        assertThat(info.getChangCount(), is(1));
+    }
+
+    /**
+     * Test delete elements.
+     */
+    @Test
+    public void whenDeleteElementsThen2() {
         current.remove(4);
         current.remove(4);
+        info = store.diff(previous, current);
+        assertThat(info.getDelCount(), is(2));
+    }
+
+    /**
+     * Test add elements.
+     */
+    @Test
+    public void whenAddElementsThen3() {
         current.add(new Store.User(16, "Dariya"));
         current.add(new Store.User(17, "Sandra"));
         current.add(new Store.User(18, "Donald"));
-        store = new Store();
+        info = store.diff(previous, current);
+        assertThat(info.getAddCount(), is(3));
     }
 
     /**
      * Test method diff, return statistics.
      */
     @Test
-    public void whenCallDiffMethodThenReturnStatistics() {
+    public void whenCallDiffMethodThenStatistics() {
+        current.set(2, new Store.User(12, "Roman"));
+        current.add(new Store.User(16, "Sonya"));
+        current.remove(3);
+        current.set(4, new Store.User(14, "Kent"));
         info = store.diff(previous, current);
-        assertThat(info.getAddCount(), is(3));
-        assertThat(info.getChangCount(), is(1));
-        assertThat(info.getDelCount(), is(2));
+        assertThat(info.getAddCount(), is(1));
+        assertThat(info.getChangCount(), is(2));
+        assertThat(info.getDelCount(), is(1));
     }
 
     /**
