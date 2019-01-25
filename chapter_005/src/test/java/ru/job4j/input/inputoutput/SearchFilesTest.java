@@ -4,7 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,10 +47,10 @@ public class SearchFilesTest {
 
     /**
      * Test.
-     * @throws IOException - exceptions
+     * @throws Exception - exceptions
      */
     @Test
-    public void whenAddTenThenReceiveTen() throws IOException {
+    public void whenAddTenThenReceiveTen() throws Exception {
         List<File> expect = new LinkedList<>();
         SearchFiles search = new SearchFiles();
         int count = 5;
