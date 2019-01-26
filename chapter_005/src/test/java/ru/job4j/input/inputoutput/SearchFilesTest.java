@@ -28,7 +28,7 @@ public class SearchFilesTest {
     /**
      * Directory path.
      */
-    private final String path = "C:" + FS + "SearchFile";
+    private final String path = System.getProperty("java.io.tmpdir") + "SearchFile";
     /**
      * List extensions of files.
      */
