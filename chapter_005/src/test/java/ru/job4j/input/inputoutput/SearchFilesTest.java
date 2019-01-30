@@ -29,7 +29,7 @@ public class SearchFilesTest {
     /**
      * Directory path.
      */
-    private final String path = FS + "SearchFile";
+    private final String path = System.getProperty("java.io.tmpdir") + FS + "SearchFile";
     /**
      * List extensions of files.
      */
