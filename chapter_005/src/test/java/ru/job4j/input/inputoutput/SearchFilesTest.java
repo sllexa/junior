@@ -48,29 +48,24 @@ public class SearchFilesTest {
 
     /**
      * Test.
+     * @throws IOException - exception
      */
     @Test
-    public void whenAddTenThenReceiveTen() {
+    public void whenAddTenThenReceiveTen() throws IOException {
         List<File> expect = new LinkedList<>();
         SearchFiles search = new SearchFiles();
         int count = 5;
-        try {
-
-            for (int i = 0; i < count; i++) {
-                String curPath = path + FS + i;
-                new File(curPath).mkdir();
-                for (String s : etxs) {
-                    File curFile = new File(curPath + FS + i + s);
-                    expect.add(curFile);
-                    curFile.createNewFile();
-                }
+        for (int i = 0; i < count; i++) {
+            String curPath = path + FS + i;
+            new File(curPath).mkdir();
+            for (String s : etxs) {
+                File curFile = new File(curPath + FS + i + s);
+                expect.add(curFile);
+                curFile.createNewFile();
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
         }
         List<File> result = search.files(path, etxs);
         assertThat(result, is(expect));
-
     }
 
 }
