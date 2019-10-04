@@ -5,6 +5,7 @@ import ru.job4j.tracker.models.Item;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.function.Consumer;
 
 /**
  * Класс MenuTracker.
@@ -27,22 +28,24 @@ public class MenuTracker {
      */
     private ArrayList<UserAction> actions = new ArrayList<>();
     /**
-     * Объккт для хранения даты.
-     */
-    private static Date date;
-    /**
      * Счетчик действий.
      */
     private int count = 0;
+    /**
+     * Поле длявывода.
+     */
+    private static Consumer<String> output;
 
     /**
      * Конструктор класса.
      * @param input - объект ввода.
-     * @param tracker - объект для работы с заявками.
+     * @param tracker - объект для работы с заявками
+     * @param output - объект для вывода
      */
-    public MenuTracker(Input input, Tracker tracker) {
+    public MenuTracker(Input input, Tracker tracker, Consumer<String> output) {
         this.input = input;
         this.tracker = tracker;
+        MenuTracker.output = output;
     }
     /**
      * Метод заполняет массив для хранения меню.
@@ -57,13 +60,7 @@ public class MenuTracker {
         this.actions.add(count++, new MenuTracker.FindByName("Find items by name.", count));
         return this.actions;
     }
-    /*/**
-     * Метод добавления нового действия.
-     * @param action - действие.
-     */
-    /*public void AddActions(UserAction action) {
-        this.actions[count++] = action;
-    }*/
+
     /**
      * Метод заполняет массив цифовым интервалом меню.
      * @param count - количество действий в меню.
@@ -90,7 +87,7 @@ public class MenuTracker {
     public void show() {
         for (UserAction action : this.actions) {
             if (action != null) {
-                System.out.println(action.info());
+                output.accept(action.info());
             }
         }
     }
@@ -111,10 +108,11 @@ public class MenuTracker {
          * @param input - ввод данных.
          * @param tracker - объект работы с заявками.
          */
+        @Override
         public void execute(Input input, Tracker tracker) {
             String tName = input.ask("Please, inter the task's name: ");
             String tDesc = input.ask("Please, inter the task's description: ");
-            date = new Date();
+            Date date = new Date();
             tracker.add(new Item(tName, tDesc, date.getTime()));
         }
     }
@@ -135,9 +133,10 @@ public class MenuTracker {
          * @param input - ввод данных.
          * @param tracker - объект работы с заявками.
          */
+        @Override
         public void execute(Input input, Tracker tracker) {
             for (Item tmp : tracker.findAll()) {
-                System.out.println(tmp);
+                output.accept(tmp.toString());
             }
         }
     }
@@ -158,6 +157,7 @@ public class MenuTracker {
          * @param input - ввод данных.
          * @param tracker - объект работы с заявками.
          */
+        @Override
         public void execute(Input input, Tracker tracker) {
             String tId = input.ask("Please, inter the task's Id: ");
             for (Item tmp : tracker.findAll()) {
@@ -167,7 +167,7 @@ public class MenuTracker {
                     Item tNew = new Item(tName, tDesc, tmp.getCreated());
                     tNew.setId(tId);
                     tracker.update(tNew);
-                    System.out.println("The changes were successfully made.");
+                    output.accept("The changes were successfully made.");
                     break;
                 }
             }
@@ -190,12 +190,13 @@ public class MenuTracker {
          * @param input - ввод данных.
          * @param tracker - объект работы с заявками.
          */
+        @Override
         public void execute(Input input, Tracker tracker) {
             String tId = input.ask("Please, inter the task's Id: ");
             for (Item tmp : tracker.findAll()) {
                 if (tmp != null && tmp.getId().equals(tId)) {
                     tracker.delete(tmp);
-                    System.out.println("The task's was successfully deleted.");
+                    output.accept("The task's was successfully deleted.");
                     break;
                 }
             }
@@ -218,13 +219,14 @@ public class MenuTracker {
          * @param input - ввод данных.
          * @param tracker - объект работы с заявками.
          */
+        @Override
         public void execute(Input input, Tracker tracker) {
             String tId = input.ask("Please, inter the task's Id: ");
             Item tmp = tracker.findById(tId);
             if (tmp != null) {
-                System.out.println(tmp);
+                output.accept(tmp.toString());
             } else {
-                System.out.println("No task's with this Id.");
+                output.accept("No task's with this Id.");
             }
         }
     }
@@ -245,13 +247,14 @@ public class MenuTracker {
          * @param input - ввод данных.
          * @param tracker - объект работы с заявками.
          */
+        @Override
         public void execute(Input input, Tracker tracker) {
             String tName = input.ask("Please, inter the task's name: ");
             for (Item tmp : tracker.findByName(tName)) {
                 if (tmp != null) {
-                    System.out.println(tmp);
+                    output.accept(tmp.toString());
                 } else {
-                    System.out.println("No task's with this name.");
+                    output.accept("No task's with this name.");
                 }
             }
         }
