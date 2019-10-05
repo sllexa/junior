@@ -39,27 +39,4 @@ public class Profile {
     public Address getAddress() {
         return address;
     }
-
-    /**
-     * Class Address.
-     */
-    public static class Address {
-        /**
-         * City.
-         */
-        private String city;
-        /**
-         * Street.
-         */
-        private String street;
-        /**
-         * Number home.
-         */
-        private int home;
-        /**
-         * Number apartment.
-         */
-        private int apartment;
-
-    }
 }

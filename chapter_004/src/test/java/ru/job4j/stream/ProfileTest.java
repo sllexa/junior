@@ -20,12 +20,12 @@ public class ProfileTest {
      */
     @Test
     public void whenListProfilesThenListAddress() {
-        List<Profile.Address> expected = new ArrayList<>();
-        List<Profile> profiles = Arrays.asList(new Profile(new Profile.Address()),
-                                                new Profile(new Profile.Address()),
-                                                new Profile(new Profile.Address()));
-        Profile profile = new Profile(new Profile.Address());
-        List<Profile.Address> result = profile.collect(profiles);
+        List<Address> expected = new ArrayList<>();
+        List<Profile> profiles = Arrays.asList(new Profile(new Address()),
+                                                new Profile(new Address()),
+                                                new Profile(new Address()));
+        Profile profile = new Profile(new Address());
+        List<Address> result = profile.collect(profiles);
         for (Profile prof : profiles) {
             expected.add(prof.getAddress());
         }
