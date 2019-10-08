@@ -9,16 +9,30 @@ package ru.job4j.stream;
  */
 public class Student {
     /**
+     * Student surname.
+     */
+    private String surname;
+    /**
      * field for storing points.
      */
     private int score;
 
     /**
      * Constructor.
+     * @param surname - surname
      * @param score - points
      */
-    public Student(int score) {
+    public Student(String surname, int score) {
+        this.surname = surname;
         this.score = score;
+    }
+
+    /**
+     * Getting student surname.
+     * @return - surname
+     */
+    public String getSurname() {
+        return surname;
     }
 
     /**

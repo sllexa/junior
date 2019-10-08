@@ -4,6 +4,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.function.Predicate;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -23,8 +25,9 @@ public class SchoolTest {
     /**
      * Students list.
      */
-    private List<Student> students = Arrays.asList(new Student(45), new Student(58),
-            new Student(85), new Student(74), new Student(90), new Student(65));
+    private List<Student> students = Arrays.asList(new Student("Petrov", 45), new Student("Vasin", 58),
+            new Student("Ivanov", 85), new Student("Borisov", 74), new Student("Golubev", 90),
+            new Student("Garin", 65));
 
     /**
      * Filter to get a class A list.
@@ -73,6 +76,19 @@ public class SchoolTest {
             if (student.getScore() > 0 && student.getScore() < 50) {
                 expected.add(student);
             }
+        }
+        assertThat(result, is(expected));
+    }
+
+    /**
+     * Test convert students list to Map.
+     */
+    @Test
+    public void whenConvertListToMapThenMap() {
+        Map<String, Student> expected = new HashMap<>();
+        Map<String, Student> result = school.convert(students);
+        for (Student student : students) {
+            expected.put(student.getSurname(), student);
         }
         assertThat(result, is(expected));
     }
