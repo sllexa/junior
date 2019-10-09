@@ -27,7 +27,7 @@ public class SchoolTest {
      */
     private List<Student> students = Arrays.asList(new Student("Petrov", 45), new Student("Vasin", 58),
             new Student("Ivanov", 85), new Student("Borisov", 74), new Student("Golubev", 90),
-            new Student("Garin", 65));
+            new Student("Garin", 65), new Student("Garin", 65));
 
     /**
      * Filter to get a class A list.
@@ -88,7 +88,9 @@ public class SchoolTest {
         Map<String, Student> expected = new HashMap<>();
         Map<String, Student> result = school.convert(students);
         for (Student student : students) {
-            expected.put(student.getSurname(), student);
+            if (!expected.containsKey(student.getSurname())) {
+                expected.put(student.getSurname(), student);
+            }
         }
         assertThat(result, is(expected));
     }

@@ -28,9 +28,10 @@ public class School {
      * @return - Map students
      */
     Map<String, Student> convert(List<Student> students) {
-        return students.stream().distinct().collect(Collectors.toMap(
+        return students.stream().collect(Collectors.toMap(
                 student -> student.getSurname(),
-                student -> student
+                student -> student,
+                (oldK, newK) -> oldK
         ));
     }
 }
