@@ -15,12 +15,12 @@ public class Account {
     /**
      * Account requisites.
      */
-    private int requisites;
+    private String requisites;
     /**
      * Account constructor.
      * @param requisites of account.
      */
-    public Account(int requisites) {
+    public Account(String requisites) {
         this.requisites = requisites;
     }
     /**
@@ -41,14 +41,10 @@ public class Account {
      * Account requisites getter.
      * @return account requisites.
      */
-    public int getRequisites() {
+    public String getRequisites() {
         return this.requisites;
     }
-    /**
-     * Comparing accounts.
-     * @param o other account.
-     * @return true if requisites of accounts are same.
-     */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -63,19 +59,17 @@ public class Account {
         if (Double.compare(account.value, value) != 0) {
             return false;
         }
-        return requisites == account.requisites;
+        return requisites != null ? requisites.equals(account.requisites) : account.requisites == null;
+
     }
-    /**
-     * Generates a hash code.
-     * @return hash code.
-     */
+
     @Override
     public int hashCode() {
         int result;
         long temp;
         temp = Double.doubleToLongBits(value);
         result = (int) (temp ^ (temp >>> 32));
-        result = 31 * result + requisites;
+        result = 31 * result + (requisites != null ? requisites.hashCode() : 0);
         return result;
     }
 }

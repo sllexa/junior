@@ -22,7 +22,7 @@ public class Bank {
      * @param user - bank client.
      */
     public void addUser(User user) {
-        this.map.put(user, new ArrayList<Account>());
+        this.map.putIfAbsent(user, new ArrayList<Account>());
     }
     /**
      * Delete client from bank.
@@ -35,80 +35,89 @@ public class Bank {
     }
     /**
      * Add account to client from bank.
-     * @param user for adding account.
+     * @param passport for adding account.
      * @param account for adding to user's account list.
      */
-    public void addAccountToUser(User user, Account account) {
-        if (this.map.containsKey(user)) {
-            this.map.get(user).add(account);
+    public void addAccountToUser(String passport, Account account) {
+        //this.map.get(this.map.keySet().stream().filter(user -> user.getPassport().equals(passport))).add(account);
+        for (User user : this.map.keySet()) {
+            if (user.getPassport().equals(passport)) {
+                this.map.get(user).add(account);
+            }
         }
     }
     /**
      * Delete account from client's account list.
-     * @param user for deleting account.
+     * @param passport for deleting account.
      * @param account for deleting from user's account list.
      */
-    public void deleteAccountFromUser(User user, Account account) {
-        if (this.map.containsKey(user)) {
-            List<Account> list = this.map.get(user);
-            if (list.contains(account)) {
-                list.remove(account);
-            } else {
-                System.out.println("Client hasn't this account");
+    public void deleteAccountFromUser(String passport, Account account) {
+        for (User user : this.map.keySet()) {
+            if (user.getPassport().equals(passport)) {
+                this.map.get(user).remove(account);
             }
         }
     }
     /**
      * Get client's account list.
-     * @param user for getting account list.
+     * @param passport for getting account list.
      * @return user's account list.
      */
-    public List<Account> getUserAccounts(User user) {
+    public List<Account> getUserAccounts(String passport) {
         List<Account> list = null;
-        if (this.map.containsKey(user)) {
-            list = map.get(user);
+        //User user1 = (User) this.map.keySet().stream().filter(user -> user.getPassport().equals(passport));
+        //list = map.get(user1);
+        for (User user : this.map.keySet()) {
+            if (user.getPassport().equals(passport)) {
+                list = map.get(user);
+            }
         }
         return list;
     }
+
     /**
      * Transfer money from one account to other. Return false if bank hasn't source or destination accounts
      * and if source account's balance is less than transfer value.
-     *
-     * @param srcUser - source client.
-     * @param srcAccount - source client's account.
-     * @param dstUser - destination client.
-     * @param dstAccount - destination client's account.
-     * @param amount - value of money for transfer.
-     * @return true if transfer is made.
+     * @param srcPassport - source client passport
+     * @param srcRequisite - source client account requisites
+     * @param destPassport - destination client passport
+     * @param dstRequisite - destination client account requisites
+     * @param amount - value of money for transfer
+     * @return - true if transfer is made
      */
-    public boolean transferMoney(User srcUser, Account srcAccount, User dstUser, Account dstAccount, double amount) {
+    public boolean transferMoney(String srcPassport, String srcRequisite, String destPassport, String dstRequisite, double amount) {
         boolean transfer = false;
-        if (this.map.containsKey(srcUser) && this.map.containsKey(dstUser)) {
-            List<Account> srcAccountList = this.map.get(srcUser);
-            List<Account> dstAccountList = this.map.get(dstUser);
-            if (srcAccountList.contains(srcAccount) && dstAccountList.contains(dstAccount)) {
-                Account srcAcc = this.getAccountFromList(srcUser, srcAccount);
-                Account dstAcc = this.getAccountFromList(dstUser, dstAccount);
-                if (srcAcc.getValue() >= amount) {
-                    srcAcc.setValue(srcAcc.getValue() - amount);
-                    dstAcc.setValue(dstAcc.getValue() + amount);
-                    transfer = true;
-                }
-            }
+        Account srcAcc = getAccountByPassportAndDetails(srcPassport, srcRequisite);
+        Account destAcc = getAccountByPassportAndDetails(destPassport, dstRequisite);
+        if (srcAcc.getValue() >= amount) {
+            srcAcc.setValue(srcAcc.getValue() - amount);
+            destAcc.setValue(destAcc.getValue() + amount);
+            transfer = true;
         }
         return transfer;
     }
+
     /**
      * Get reference to client's account.
-     * @param user for getting reference to account.
-     * @param account for getting reference.
-     * @return reference to user's account.
+     * @param passport - for getting reference to account
+     * @param requisites - for getting reference
+     * @return - reference to user's account
      */
-    private Account getAccountFromList(User user, Account account) {
+    Account getAccountByPassportAndDetails(String passport, String requisites) {
         Account result = null;
-        for (Account tmp : this.map.get(user)) {
-            if (tmp.equals(account)) {
-                result = tmp;
+        for (Map.Entry entry : this.map.entrySet()) {
+            User user = (User) entry.getKey();
+            if (user.getPassport().equals(passport)) {
+                List<Account> listAcc = (List<Account>) entry.getValue();
+                for (Account acc : listAcc) {
+                    if (acc.getRequisites().equals(requisites)) {
+                        result = acc;
+                        break;
+                    }
+                }
+            }
+            if (result != null) {
+                break;
             }
         }
         return result;

@@ -15,13 +15,13 @@ public class User {
     /**
      * User passport number.
      */
-    private int passport;
+    private String passport;
     /**
      * User constructor.
      * @param name of user.
      * @param passport number of user.
      */
-    public User(String name, int passport) {
+    public User(String name, String passport) {
         this.name = name;
         this.passport = passport;
     }
@@ -36,14 +36,10 @@ public class User {
      * Pasport number getter.
      * @return passport number.
      */
-    public int getPassport() {
+    public String getPassport() {
         return this.passport;
     }
-    /**
-     * Comparing user's.
-     * @param o other user.
-     * @return true if name and passport are same.
-     */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -55,19 +51,17 @@ public class User {
 
         User user = (User) o;
 
-        if (passport != user.passport) {
+        if (name != null ? !name.equals(user.name) : user.name != null) {
             return false;
         }
-        return name != null ? name.equals(user.name) : user.name == null;
+        return passport != null ? passport.equals(user.passport) : user.passport == null;
+
     }
-    /**
-     * Generates a hash code.
-     * @return hash code.
-     */
+
     @Override
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + passport;
+        result = 31 * result + (passport != null ? passport.hashCode() : 0);
         return result;
     }
 }
