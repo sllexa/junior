@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Class Bank.
@@ -17,6 +19,8 @@ public class Bank {
      * map with key - user and value - list of user accounts.
      */
     private Map<User, List<Account>> map = new HashMap<>();
+    private boolean acc;
+
     /**
      * Add client to bank.
      * @param user - bank client.
@@ -29,9 +33,7 @@ public class Bank {
      * @param user for deleting.
      */
     public void deleteUser(User user) {
-        if (this.map.containsKey(user)) {
-            this.map.remove(user);
-        }
+        this.map.remove(user);
     }
     /**
      * Add account to client from bank.
@@ -39,12 +41,16 @@ public class Bank {
      * @param account for adding to user's account list.
      */
     public void addAccountToUser(String passport, Account account) {
-        //this.map.get(this.map.keySet().stream().filter(user -> user.getPassport().equals(passport))).add(account);
-        for (User user : this.map.keySet()) {
-            if (user.getPassport().equals(passport)) {
-                this.map.get(user).add(account);
-            }
-        }
+        this.map.entrySet().stream()
+                .filter(entry -> entry.getKey().getPassport().equals(passport))
+                .findFirst()
+                .map(user -> this.map.get(user.getKey()))
+                .ifPresent(accounts -> accounts.add(account));
+            /*for (User user : this.map.keySet()) {
+                if (user.getPassport().equals(passport)) {
+                    this.map.get(user).add(account);
+                }
+            }*/
     }
     /**
      * Delete account from client's account list.
@@ -52,11 +58,16 @@ public class Bank {
      * @param account for deleting from user's account list.
      */
     public void deleteAccountFromUser(String passport, Account account) {
-        for (User user : this.map.keySet()) {
+        this.map.entrySet().stream()
+                .filter(entry -> entry.getKey().getPassport().equals(passport))
+                .findFirst()
+                .map(user -> this.map.get(user.getKey()))
+                .ifPresent(accounts -> accounts.remove(account));
+        /*for (User user : this.map.keySet()) {
             if (user.getPassport().equals(passport)) {
                 this.map.get(user).remove(account);
             }
-        }
+        }*/
     }
     /**
      * Get client's account list.
@@ -65,13 +76,16 @@ public class Bank {
      */
     public List<Account> getUserAccounts(String passport) {
         List<Account> list = null;
-        //User user1 = (User) this.map.keySet().stream().filter(user -> user.getPassport().equals(passport));
-        //list = map.get(user1);
-        for (User user : this.map.keySet()) {
+        list = this.map.entrySet().stream()
+                .filter(entry -> entry.getKey().getPassport().equals(passport))
+                .findFirst()
+                .map(u -> this.map.get(u.getKey()))
+                .get();
+        /*for (User user : this.map.keySet()) {
             if (user.getPassport().equals(passport)) {
                 list = map.get(user);
             }
-        }
+        }*/
         return list;
     }
 
@@ -105,7 +119,17 @@ public class Bank {
      */
     Account getAccountByPassportAndDetails(String passport, String requisites) {
         Account result = null;
-        for (Map.Entry entry : this.map.entrySet()) {
+        List<Account> list;
+        list = this.map.entrySet().stream()
+                .filter(entry -> entry.getKey().getPassport().equals(passport))
+                .map(Map.Entry::getValue)
+                .findFirst()
+                .get();
+        result = list.stream()
+                .filter(account -> account.getRequisites().equals(requisites))
+                .findFirst()
+                .get();
+        /*for (Map.Entry entry : this.map.entrySet()) {
             User user = (User) entry.getKey();
             if (user.getPassport().equals(passport)) {
                 List<Account> listAcc = (List<Account>) entry.getValue();
@@ -119,7 +143,7 @@ public class Bank {
             if (result != null) {
                 break;
             }
-        }
+        }*/
         return result;
     }
     /**
