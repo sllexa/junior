@@ -45,34 +45,6 @@
 			<artifactId>guava</artifactId>
 			<version>19.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-fxml</artifactId>
-			<version>13</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-graphics -->
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-graphics</artifactId>
-			<version>13</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-base</artifactId>
-			<version>13</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-controls</artifactId>
-			<version>13</version>
-		</dependency>
-
 	</dependencies>
 	
 	<build>
@@ -80,9 +52,9 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
+				<version>3.6.2</version>
 				<configuration>
-					<compilerVersion>1.8</compilerVersion>
+					<compilerVersion>13</compilerVersion>
 				</configuration>
 			</plugin>
 			<plugin>
