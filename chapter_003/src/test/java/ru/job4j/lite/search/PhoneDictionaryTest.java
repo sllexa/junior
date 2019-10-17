@@ -19,9 +19,9 @@ public class PhoneDictionaryTest {
      */
     @Test
     public void whenFindByName() {
-        PhoneDictionary phones = new PhoneDictionary();
+        var phones = new PhoneDictionary();
         phones.add(new Person("Alex", "Solyanik", "95076", "Domenikana"));
-        List<Person> persons = phones.find("076");
+        var persons = phones.find("076");
         assertThat(persons.iterator().next().getSurname(), is("Solyanik"));
     }
 }

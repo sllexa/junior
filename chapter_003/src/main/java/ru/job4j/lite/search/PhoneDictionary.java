@@ -32,10 +32,9 @@ public class PhoneDictionary {
      */
     public List<Person> find(String key) {
         List<Person> result = new ArrayList<>();
-        for (Person people : person) {
+        for (var people : person) {
             if (people.getName().contains(key) || people.getSurname().contains(key)
-                    || people.getPhone().contains(key) || people.getAddress().contains(key)
-                    ) {
+                    || people.getPhone().contains(key) || people.getAddress().contains(key)) {
                 result.add(people);
             }
         }
