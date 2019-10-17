@@ -1,7 +1,6 @@
 package ru.job4j.lite.organization;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -37,12 +36,7 @@ public class Organization {
      * @return - set of strings.
      */
     public List<String> sortDown(String[] codes) {
-        Set<Department> list = new TreeSet<>(new Comparator<Department>() {
-            @Override
-            public int compare(Department o1, Department o2) {
-                return o2.name.compareTo(o1.name);
-            }
-        });
+        Set<Department> list = new TreeSet<>((o1, o2) -> o2.name.compareTo(o1.name));
         Department dep1 = new Department(null, new TreeSet<>());
         Department dep2 = new Department(null, new TreeSet<>());
         for (String str : codes) {
@@ -69,9 +63,7 @@ public class Organization {
         list.add(dep2);
         List<String> result = new ArrayList<>();
         for (Department dep : list) {
-            for (String str : dep.subdivision) {
-                result.add(str);
-            }
+            result.addAll(dep.subdivision);
         }
         return result;
     }
@@ -83,7 +75,7 @@ public class Organization {
      * @return - string.
      */
     private String subStr(String str, int num) {
-        int pos = 0;
+        int pos;
         String result = null;
         if (str != null) {
             if (num == 1) {

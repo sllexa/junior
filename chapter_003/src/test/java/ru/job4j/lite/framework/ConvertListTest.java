@@ -1,10 +1,8 @@
 package ru.job4j.lite.framework;
 
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -50,10 +48,11 @@ public class ConvertListTest {
      */
     @Test
     public void whenConvertListOfArraysToOneList() {
-        List<int[]> list = new ArrayList<>();
-        list.add(new int[]{9, 8, 7});
-        list.add(new int[]{6, 5, 4});
-        list.add(new int[]{3, 2, 1});
+        List<int[]> list = List.of(
+                new int[]{9, 8, 7},
+                new int[]{6, 5, 4},
+                new int[]{3, 2, 1}
+        );
         ConvertList cList = new ConvertList();
         List<Integer> result = cList.convert(list);
         List<Integer> expected = new ArrayList<>();

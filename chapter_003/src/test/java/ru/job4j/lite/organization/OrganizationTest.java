@@ -1,13 +1,9 @@
 package ru.job4j.lite.organization;
 
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -28,9 +24,11 @@ public class OrganizationTest {
                 "K2", "K2\\SK1\\SSK1", "K2\\SK1\\SSK2"};
         Organization org = new Organization();
         Set<String> result = org.sortUp(arCodes);
-        Set<String> expected = new TreeSet<>();
-        expected.addAll(Arrays.asList("K1", "K1\\SK1", "K1\\SK1\\SSK1", "K1\\SK1\\SSK2", "K1\\SK2",
-                "K2", "K2\\SK1", "K2\\SK1\\SSK1", "K2\\SK1\\SSK2"));
+        Set<String> expected = new TreeSet<>(Set.of("K1", "K1\\SK1", "K1\\SK1\\SSK1",
+                "K1\\SK1\\SSK2", "K1\\SK2",
+                "K2", "K2\\SK1", "K2\\SK1\\SSK1",
+                "K2\\SK1\\SSK2"
+        ));
         assertThat(result, is(expected));
     }
 
@@ -43,9 +41,9 @@ public class OrganizationTest {
                 "K2", "K2\\SK1\\SSK1", "K2\\SK1\\SSK2"};
         Organization org = new Organization();
         List<String> result = org.sortDown(arCodes);
-        List<String> expected = new ArrayList<>();
-        expected.addAll(Arrays.asList("K2", "K2\\SK1", "K2\\SK1\\SSK1", "K2\\SK1\\SSK2",
-                "K1", "K1\\SK1", "K1\\SK1\\SSK1", "K1\\SK1\\SSK2", "K1\\SK2"));
+        List<String> expected = List.of("K2", "K2\\SK1", "K2\\SK1\\SSK1",
+                "K2\\SK1\\SSK2", "K1", "K1\\SK1", "K1\\SK1\\SSK1", "K1\\SK1\\SSK2", "K1\\SK2"
+        );
         assertThat(result, is(expected));
     }
 }

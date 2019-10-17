@@ -1,7 +1,6 @@
 package ru.job4j.lite.bank;
 
 import org.junit.Test;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +28,7 @@ public class BankTest {
     /**
      * List users.
      */
-    private List<User> users = Arrays.asList(
+    private List<User> users = List.of(
             new User("Maxim", "45098775"),
             new User("Nikola", "72814612"),
             new User("Mary", "20015088"),
@@ -126,7 +125,7 @@ public class BankTest {
         bank.addAccountToUser("72814612", new Account("000111"));
         List<Account> result = null;
         result = bank.getUserAccounts("72814612");
-        List<Account> expected = Arrays.asList(new Account("000445"),
+        List<Account> expected = List.of(new Account("000445"),
                 new Account("000333"), new Account("000111"));
         assertThat(result, is(expected));
     }

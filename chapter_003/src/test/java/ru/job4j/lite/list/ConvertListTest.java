@@ -1,8 +1,6 @@
 package ru.job4j.lite.list;
 
 import org.junit.Test;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -21,12 +19,13 @@ public class ConvertListTest {
     @Test
     public void when2And4ElementsThen6() {
         ConvertList clist = new ConvertList();
-        List<int[]> list = new ArrayList<>();
-        list.add(new int[] {9, 8});
-        list.add(new int[] {7, 6, 5, 4});
-        list.add(new int[] {3, 2, 1});
+        List<int[]> list = List.of(
+                new int[] {9, 8},
+                new int[] {7, 6, 5, 4},
+                new int[] {3, 2, 1}
+        );
         List<Integer> result = clist.convert(list);
-        List<Integer> expect = Arrays.asList(9, 8, 7, 6, 5, 4, 3, 2, 1);
+        List<Integer> expect = List.of(9, 8, 7, 6, 5, 4, 3, 2, 1);
         assertThat(result, is(expect));
     }
 }

@@ -1,7 +1,5 @@
 package ru.job4j.lite.sort;
 
-
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -21,9 +19,7 @@ public class SortUser {
      */
     public Set<User> sort(List<User> list) {
         Set<User> users = new TreeSet<>();
-        for (User user : list) {
-            users.add(user);
-        }
+        users.addAll(list);
         return users;
     }
 
@@ -33,7 +29,7 @@ public class SortUser {
      * @return sorted list of users.
      */
     public List<User> sortHash(List<User> list) {
-        Collections.sort(list, (o1, o2) -> Integer.compare(o1.hashCode(), o2.hashCode()));
+        list.sort((o1, o2) -> Integer.compare(o1.hashCode(), o2.hashCode()));
         return list;
     }
 
@@ -43,7 +39,7 @@ public class SortUser {
      * @return sorted list of users.
      */
     public List<User> sortLength(List<User> list) {
-        Collections.sort(list, (o1, o2) -> Integer.compare(o1.getName().length(), o2.getName().length()));
+        list.sort((o1, o2) -> o1.getName().length() - o2.getName().length());
         return list;
     }
 }

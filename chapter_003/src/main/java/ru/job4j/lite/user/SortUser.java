@@ -1,6 +1,5 @@
 package ru.job4j.lite.user;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -44,7 +43,7 @@ public class SortUser {
      * @return - sorted list of user.
      */
     public List<User> sortByAllFields(List<User> list) {
-        Collections.sort(list, new Comparator<User>() {
+        list.sort(new Comparator<User>() {
             @Override
             public int compare(User o1, User o2) {
                 int rsl = o1.getName().compareTo(o2.getName());
