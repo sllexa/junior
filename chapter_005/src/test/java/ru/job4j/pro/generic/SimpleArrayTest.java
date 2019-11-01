@@ -2,6 +2,8 @@ package ru.job4j.pro.generic;
 
 import org.junit.Test;
 
+import java.util.Iterator;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -105,5 +107,21 @@ public class SimpleArrayTest {
         for (int i = 0; i < 2; i++) {
             assertThat(arr.get(i), is(expected[i]));
         }
+    }
+
+    /**
+     * Test method Iterator.
+     */
+    @Test
+    public void whenAddTwoElementsShouldGetTwoElementsUsingIterator() {
+        SimpleArray<String> arr = new SimpleArray<>(5);
+        arr.add("ss");
+        arr.add("bb");
+        String[] expected = new String[]{"ss", "bb"};
+        String[] result = new String[2];
+        Iterator<String> itr = arr.iterator();
+        result[0] = itr.next();
+        result[1] = itr.next();
+        assertThat(result, is(expected));
     }
 }

@@ -1,5 +1,9 @@
 package ru.job4j.pro.generic;
 
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  * Class SimpleArray.
  *
@@ -8,7 +12,7 @@ package ru.job4j.pro.generic;
  * @since 21.06.2017
  * @param <T> - generic
  */
-public class SimpleArray<T> {
+public class SimpleArray<T> implements Iterable<T> {
     /**
      * Array of objects.
      */
@@ -82,5 +86,53 @@ public class SimpleArray<T> {
      */
     public int getSize() {
         return this.arr.length;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new SampleArrIterator(index, (Iterator<T>) Arrays.stream(this.arr).iterator());
+    }
+
+    /**
+     * Inner class for iterator.
+     */
+    private class SampleArrIterator implements Iterator {
+        /**
+         * size.
+         */
+        private int size;
+        /**
+         * index.
+         */
+        private int ind;
+        /**
+         * object iterator.
+         */
+        private Iterator<T> arrIterator;
+
+        /**
+         * Constructor.
+         * @param size -
+         * @param arrIterator -
+         */
+        SampleArrIterator(int size, Iterator<T> arrIterator) {
+            this.size = size;
+            this.ind = 0;
+            this.arrIterator = arrIterator;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return ind <= size && arrIterator.hasNext();
+        }
+
+        @Override
+        public T next() {
+            if (ind > size - 1) {
+                throw new NoSuchElementException("index lower than size");
+            }
+            ind++;
+            return arrIterator.next();
+        }
     }
 }
