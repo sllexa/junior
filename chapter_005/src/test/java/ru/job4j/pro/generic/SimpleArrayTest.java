@@ -1,9 +1,8 @@
 package ru.job4j.pro.generic;
 
 import org.junit.Test;
-
 import java.util.Iterator;
-
+import java.util.NoSuchElementException;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -114,7 +113,7 @@ public class SimpleArrayTest {
      */
     @Test
     public void whenAddTwoElementsShouldGetTwoElementsUsingIterator() {
-        SimpleArray<String> arr = new SimpleArray<>(5);
+        SimpleArray<String> arr = new SimpleArray<>(2);
         arr.add("ss");
         arr.add("bb");
         String[] expected = new String[]{"ss", "bb"};
@@ -123,5 +122,29 @@ public class SimpleArrayTest {
         result[0] = itr.next();
         result[1] = itr.next();
         assertThat(result, is(expected));
+    }
+
+    /**
+     * Test iterator exception.
+     */
+    @Test(expected = NoSuchElementException.class)
+    public void whenAddTwoElementsShouldExceptionThenNext3TimesUsingIterator() {
+        SimpleArray<String> simpleArray = new SimpleArray<>(2);
+        simpleArray.add("ss");
+        simpleArray.add("bb");
+        Iterator<String> iterator = simpleArray.iterator();
+        iterator.next();
+        iterator.next();
+        iterator.next();
+    }
+
+    /**
+     * Test iterator.
+     */
+    @Test(expected = NoSuchElementException.class)
+    public void whenEmptyIteratorShouldException() {
+        SimpleArray<String> arr = new SimpleArray<>(2);
+        Iterator<String> itr = arr.iterator();
+        itr.next();
     }
 }

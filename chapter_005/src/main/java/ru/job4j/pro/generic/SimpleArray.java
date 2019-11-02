@@ -1,6 +1,5 @@
 package ru.job4j.pro.generic;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -90,49 +89,21 @@ public class SimpleArray<T> implements Iterable<T> {
 
     @Override
     public Iterator<T> iterator() {
-        return new SampleArrIterator(index, (Iterator<T>) Arrays.stream(this.arr).iterator());
-    }
+        return new Iterator<T>() {
+            private int ind = 0;
 
-    /**
-     * Inner class for iterator.
-     */
-    private class SampleArrIterator implements Iterator {
-        /**
-         * size.
-         */
-        private int size;
-        /**
-         * index.
-         */
-        private int ind;
-        /**
-         * object iterator.
-         */
-        private Iterator<T> arrIterator;
-
-        /**
-         * Constructor.
-         * @param size -
-         * @param arrIterator -
-         */
-        SampleArrIterator(int size, Iterator<T> arrIterator) {
-            this.size = size;
-            this.ind = 0;
-            this.arrIterator = arrIterator;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return ind <= size && arrIterator.hasNext();
-        }
-
-        @Override
-        public T next() {
-            if (ind > size - 1) {
-                throw new NoSuchElementException("index lower than size");
+            @Override
+            public boolean hasNext() {
+                return arr.length > ind;
             }
-            ind++;
-            return arrIterator.next();
-        }
+
+            @Override
+            public T next() {
+                if (ind >= arr.length || arr[ind] == null) {
+                    throw new NoSuchElementException("index lower than size");
+                }
+                return (T) arr[ind++];
+            }
+        };
     }
 }
