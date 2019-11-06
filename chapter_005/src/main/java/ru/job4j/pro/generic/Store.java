@@ -20,14 +20,16 @@ public interface Store<T extends Base> {
      * Update method.
      * @param id - of Base object.
      * @param value - new value.
+     * @return - true or false
      */
-    void update(String id, T value);
+    boolean update(String id, T value);
 
     /**
      * Delete method.
      * @param id - of element.
+     * @return - true or false
      */
-    void delete(String id);
+     boolean delete(String id);
 
     /**
      * Get method.

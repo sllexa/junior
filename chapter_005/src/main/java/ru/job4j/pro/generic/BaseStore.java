@@ -1,5 +1,7 @@
 package ru.job4j.pro.generic;
 
+import java.util.NoSuchElementException;
+
 /**
  * Class BaseStore.
  *
@@ -38,8 +40,14 @@ public abstract class BaseStore<T extends Base> implements Store<T> {
      * @param value - new value.
      */
     @Override
-    public void update(String id, T value) {
-        this.arr.update(this.getIndex(id), value);
+    public boolean update(String id, T value) {
+        boolean result = false;
+        int index = getIndex(id);
+        if (index != -1) {
+            this.arr.update(index, value);
+            result = true;
+        }
+        return result;
     }
 
     /**
@@ -47,8 +55,14 @@ public abstract class BaseStore<T extends Base> implements Store<T> {
      * @param id - of element.
      */
     @Override
-    public void delete(String id) {
-        this.arr.delete(this.getIndex(id));
+    public boolean delete(String id) {
+        var result = false;
+        var index = getIndex(id);
+        if (index != -1) {
+            this.arr.delete(index);
+            result = true;
+        }
+        return result;
     }
 
     /**
@@ -58,7 +72,11 @@ public abstract class BaseStore<T extends Base> implements Store<T> {
      */
     @Override
     public T get(String id) {
-        return this.arr.get(this.getIndex(id));
+        int index = getIndex(id);
+        if (index == -1) {
+            throw new NoSuchElementException("model not found d by id: " + id);
+        }
+        return this.arr.get(index);
     }
 
     /**
