@@ -1,9 +1,6 @@
 package ru.job4j.io;
 
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.io.*;
 
 /**
  * Class Analizy.
@@ -15,10 +12,7 @@ import java.io.PrintWriter;
 public class Analizy {
 
     public void unavailable(String source, String target) {
-        try (
-                BufferedReader reader = new BufferedReader(new FileReader(source));
-                PrintWriter out = new PrintWriter(new FileOutputStream(target))
-            ) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
 
             String line = reader.readLine();
             StringBuilder result = new StringBuilder();
@@ -39,10 +33,19 @@ public class Analizy {
                 }
                 line = reader.readLine();
             }
-            out.print(result.toString());
+            writeOut(result.toString(), target);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void writeOut(String result, String target) {
+        try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
+            out.print(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void main(String[] args) {
