@@ -18,12 +18,13 @@ import static org.junit.Assert.*;
  * @since 12.12.2019
  */
 public class AnalizyTest {
+    private static final String FS = System.getProperty("file.separator");
     String tmp;
 
     @Before
     public void before() {
         tmp = System.getProperty("java.io.tmpdir");
-        try (PrintWriter out = new PrintWriter(new FileOutputStream(tmp + "server.log"))) {
+        try (PrintWriter out = new PrintWriter(new FileOutputStream(tmp + FS + "server.log"))) {
             out.println("200 10:56:01");
             out.println("");
             out.println("500 10:57:01");
@@ -44,8 +45,8 @@ public class AnalizyTest {
     @Test
     public void whenLogContains3PeriodsShould3Periods() throws FileNotFoundException {
         Analizy analizy = new Analizy();
-        analizy.unavailable(tmp + "server.log", tmp + "target.csv");
-        Scanner scanner = new Scanner(new FileInputStream(tmp + "target.csv"));
+        analizy.unavailable(tmp + FS + "server.log", tmp + FS + "target.csv");
+        Scanner scanner = new Scanner(new FileInputStream(tmp + FS + "target.csv"));
         assertThat(scanner.nextLine(), is("10:57:01;10:59:01"));
         assertThat(scanner.nextLine(), is("11:01:02;11:02:02"));
         scanner.close();
@@ -53,11 +54,11 @@ public class AnalizyTest {
 
     @After
     public void after() {
-        File file = new File(tmp + "server.log");
+        File file = new File(tmp + FS + "server.log");
         if (file.exists()) {
             file.delete();
         }
-        file = new File(tmp + "target.csv");
+        file = new File(tmp + FS + "target.csv");
         if (file.exists()) {
             file.delete();
         }
