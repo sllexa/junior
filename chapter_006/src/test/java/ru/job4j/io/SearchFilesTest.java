@@ -1,4 +1,4 @@
-package ru.job4j.input.inputoutput;
+package ru.job4j.io;
 
 import org.junit.Before;
 import org.junit.Test;
