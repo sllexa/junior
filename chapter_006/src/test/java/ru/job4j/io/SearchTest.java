@@ -2,26 +2,22 @@ package ru.job4j.io;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-
 /**
- * Class SearchFilesTest.
+ * Class SearchTest.
  *
  * @author Aleksey Slivko
  * @version $1.0$
- * @since 24.01.2019
+ * @since 30.12.2019
  */
-public class SearchFilesTest {
+public class SearchTest {
     /**
      * File separator.
      */
@@ -53,7 +49,7 @@ public class SearchFilesTest {
     @Test
     public void whenAddTenThenReceiveTen() throws IOException {
         List<File> expect = new LinkedList<>();
-        SearchFiles search = new SearchFiles();
+        Search search = new Search();
         int count = 5;
         for (int i = 0; i < count; i++) {
             String curPath = path + FS + i;

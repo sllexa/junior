@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * Class SearchFiles.
+ * Class Search.
  *
  * @author Aleksey Slivko
  * @version $1.0$
- * @since 24.01.2019
+ * @since 30.12.2019
  */
-public class SearchFiles {
+public class Search {
     /**
      * Return list of files.
      * @param parent - searching directory
